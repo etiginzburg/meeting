@@ -1514,19 +1514,24 @@ async function apiGet(params) {
 
 /**
  * Makes a POST request to the Google Apps Script API
- * @param {Object} data - Data to send in the POST body
+ * Uses a workaround for GAS CORS issues by encoding data in URL
+ * 
+ * @param {Object} data - Data to send
  * @return {Promise<Object>} The JSON response
  */
 async function apiPost(data) {
     try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
+        // For Google Apps Script, we need to use GET with encoded data
+        // because POST has CORS issues with external domains
+        const encodedData = encodeURIComponent(JSON.stringify(data));
+        const url = `${API_URL}?action=${data.action}&data=${encodedData}`;
+        
+        const response = await fetch(url, {
+            method: 'GET',
             mode: 'cors',
             headers: {
-                'Content-Type': 'application/json',
                 'Accept': 'application/json'
-            },
-            body: JSON.stringify(data)
+            }
         });
         
         if (!response.ok) {
