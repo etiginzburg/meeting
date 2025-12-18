@@ -1961,10 +1961,36 @@ function formatDurationInLanguage(minutes) {
 
 /**
  * Validate phone number
+ * Accepts:
+ * - Israeli local format: 05X-XXXXXXX, 0X-XXXXXXX (landline)
+ * - Israeli international format: +972-XX-XXXXXXX or 972-XX-XXXXXXX
+ * - International numbers: +XX... (any number starting with + followed by digits)
+ * 
+ * For Israeli +972 format, converts to local format for validation
  */
 function isValidPhone(phone) {
-    const cleanPhone = phone.replace(/\D/g, '');
-    return /^0[2-9]\d{7,8}$/.test(cleanPhone) || /^05\d{8}$/.test(cleanPhone);
+    // Remove all non-digit characters except leading +
+    let cleanPhone = phone.trim();
+    const hasPlus = cleanPhone.startsWith('+');
+    cleanPhone = cleanPhone.replace(/\D/g, '');
+    
+    // Israeli +972 format: convert to local format (remove 972, add 0)
+    if (cleanPhone.startsWith('972') && cleanPhone.length >= 11) {
+        cleanPhone = '0' + cleanPhone.substring(3);
+    }
+    
+    // Israeli local format validation
+    if (/^0[2-9]\d{7,8}$/.test(cleanPhone) || /^05\d{8}$/.test(cleanPhone)) {
+        return true;
+    }
+    
+    // International format: starts with + and has at least 8 digits (excluding country code)
+    // Common international formats are 10-15 digits total
+    if (hasPlus && cleanPhone.length >= 8 && cleanPhone.length <= 15) {
+        return true;
+    }
+    
+    return false;
 }
 
 /**
