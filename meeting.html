@@ -1421,6 +1421,15 @@ let config = {};
 let calendarLink = null;
 let currentLanguage = 'he'; // Default to Hebrew
 
+// Pre-loading cache and state variables
+// These variables manage background loading of time slots to improve user experience
+let timeSlotsCache = {};          // Cache of available time slots by date string {dateStr: timeSlots[]}
+let preloadQueue = [];            // Queue of dates to preload (working days only)
+let isPreloading = false;         // Flag indicating if preload is currently running
+let preloadPaused = false;        // Flag to pause preload when immediate load is needed
+let currentPreloadDate = null;    // The date currently being preloaded
+let preloadDuration = null;       // Duration for preloading (calculated from number of people)
+
 // Translations object
 const translations = {
     he: {
@@ -1705,6 +1714,10 @@ async function initializeApp() {
 function handleConfigLoaded(serverConfig) {
     config = serverConfig;
     console.log('Configuration loaded:', config);
+    
+    // Start preloading time slots in the background
+    // This improves UX by having slots ready when user reaches step 3
+    startPreloading();
 }
 
 /**
@@ -2164,14 +2177,12 @@ function updateSelectedDateInfo() {
 
 /**
  * Load available time slots for selected date
+ * 
+ * Enhanced with caching: First checks if slots are already cached from preloading.
+ * If cached, displays immediately. If not, pauses preloading and fetches immediately.
  */
 async function loadTimeSlots() {
     if (!selectedDate) return;
-    
-    // Show loading
-    document.getElementById('timeSlotsLoading').classList.remove('hidden');
-    document.getElementById('timeSlotsGrid').innerHTML = '';
-    document.getElementById('noSlotsMessage').classList.add('hidden');
     
     // Update selected date info
     updateSelectedDateInfo();
@@ -2189,7 +2200,26 @@ async function loadTimeSlots() {
     const dateStr = `${year}-${month}-${day}`;
     
     console.log('Selected date:', selectedDate.toDateString());
-    console.log('Date string sent to server:', dateStr);
+    console.log('Date string for lookup:', dateStr);
+    
+    // Check if we have cached slots for this date
+    if (timeSlotsCache[dateStr]) {
+        console.log(`Using cached slots for ${dateStr} (${timeSlotsCache[dateStr].length} slots)`);
+        // Use cached data - instant display!
+        handleTimeSlotsLoaded(timeSlotsCache[dateStr]);
+        return;
+    }
+    
+    // Not in cache - need to load from server
+    console.log(`No cache for ${dateStr}, loading from server...`);
+    
+    // Show loading indicator
+    document.getElementById('timeSlotsLoading').classList.remove('hidden');
+    document.getElementById('timeSlotsGrid').innerHTML = '';
+    document.getElementById('noSlotsMessage').classList.add('hidden');
+    
+    // Pause background preloading to prioritize this request
+    pausePreloading();
     
     try {
         const response = await apiGet({
@@ -2199,6 +2229,9 @@ async function loadTimeSlots() {
         });
         
         if (response.success) {
+            // Store in cache for future use
+            timeSlotsCache[dateStr] = response.timeSlots;
+            console.log(`Loaded and cached ${response.timeSlots.length} slots for ${dateStr}`);
             handleTimeSlotsLoaded(response.timeSlots);
         } else {
             handleTimeSlotsError(response.message);
@@ -2206,6 +2239,9 @@ async function loadTimeSlots() {
     } catch (error) {
         handleTimeSlotsError(error);
     }
+    
+    // Resume background preloading
+    resumePreloading();
 }
 
 /**
@@ -2334,10 +2370,41 @@ async function confirmBooking() {
 
 /**
  * Handle successful booking
+ * Also handles the case where the slot was taken between selection and confirmation
  */
 function handleBookingSuccess(result) {
     // Hide loading overlay
     document.getElementById('loadingOverlay').classList.add('hidden');
+    
+    // Check if slot was taken before booking could complete
+    if (result && result.slotTaken === true) {
+        // The selected time slot was taken by someone else
+        console.log('Slot was taken before booking could complete');
+        
+        const errorMsg = currentLanguage === 'he' 
+            ? result.message || 'השעה שבחרת נתפסה בינתיים. אנא בחרי שעה אחרת.'
+            : 'The time slot you selected has been taken. Please choose another time.';
+        
+        alert(errorMsg);
+        
+        // Clear cache for this date to ensure fresh data
+        clearCacheForDate(appointmentData.date);
+        
+        // Clear cache for all dates to be safe (slots might have changed)
+        clearAllCache();
+        
+        // Reset time slot selection
+        selectedTimeSlot = null;
+        document.getElementById('continueToConfirm').disabled = true;
+        
+        // Go back to step 2 (date selection)
+        goToStep(2);
+        
+        // Restart preloading to get fresh data
+        startPreloading();
+        
+        return;
+    }
     
     if (result && result.success === true && result.eventId) {
         // Store calendar link
@@ -2426,6 +2493,9 @@ function resetForm() {
     appointmentData = {};
     calendarLink = null;
     
+    // Clear time slots cache and restart preloading for fresh data
+    clearAllCache();
+    
     // Reset form fields
     document.getElementById('clientName').value = '';
     document.getElementById('clientPhone').value = '';
@@ -2451,6 +2521,9 @@ function resetForm() {
     
     // Scroll to top
     window.scrollTo(0, 0);
+    
+    // Restart preloading for fresh data
+    startPreloading();
 }
 
 /**
@@ -2502,6 +2575,154 @@ goToStep = function(step) {
         originalGoToStep(step);
     }
 };
+
+// ============================================================================
+// PRE-LOADING FUNCTIONS
+// These functions handle background loading of time slots to improve UX
+// ============================================================================
+
+/**
+ * Starts the background preloading of time slots for the next 30 days
+ * 
+ * Purpose: Load available time slots in the background while the client is
+ * filling out the form on step 1. This way, when they reach step 3 (time selection),
+ * the slots are already cached and display instantly.
+ * 
+ * Method: Builds a queue of working days (Sunday-Thursday) for the next 30 days
+ * and starts loading them one by one in the background.
+ */
+function startPreloading() {
+    console.log('Starting preload of time slots...');
+    
+    // Build queue of dates to preload (next 30 working days)
+    preloadQueue = [];
+    const today = new Date();
+    let daysAdded = 0;
+    let currentDate = new Date(today);
+    
+    while (daysAdded < 30) {
+        currentDate.setDate(currentDate.getDate() + 1);
+        const dayOfWeek = currentDate.getDay();
+        
+        // Only add working days (Sunday=0 to Thursday=4)
+        // Skip Friday (5) and Saturday (6)
+        if (dayOfWeek !== 5 && dayOfWeek !== 6) {
+            const year = currentDate.getFullYear();
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const day = String(currentDate.getDate()).padStart(2, '0');
+            const dateStr = `${year}-${month}-${day}`;
+            
+            preloadQueue.push(dateStr);
+            daysAdded++;
+        }
+    }
+    
+    console.log(`Preload queue built with ${preloadQueue.length} dates:`, preloadQueue.slice(0, 5), '...');
+    
+    // Start preloading
+    isPreloading = true;
+    preloadPaused = false;
+    preloadNextDate();
+}
+
+/**
+ * Preloads the next date in the queue
+ * Called recursively to process the entire queue
+ */
+async function preloadNextDate() {
+    // Check if we should stop
+    if (!isPreloading || preloadQueue.length === 0) {
+        console.log('Preloading completed or stopped');
+        isPreloading = false;
+        return;
+    }
+    
+    // Check if paused (waiting for priority load)
+    if (preloadPaused) {
+        console.log('Preloading paused, waiting...');
+        return;
+    }
+    
+    // Get next date from queue
+    currentPreloadDate = preloadQueue.shift();
+    
+    // Skip if already cached
+    if (timeSlotsCache[currentPreloadDate]) {
+        console.log(`Date ${currentPreloadDate} already cached, skipping`);
+        preloadNextDate();
+        return;
+    }
+    
+    // Calculate duration (use default if not set yet)
+    const people = document.getElementById('numberOfPeople').value;
+    const baseDuration = config.baseDuration || 30;
+    const additionalDuration = config.additionalPersonDuration || 15;
+    const duration = people ? baseDuration + ((parseInt(people) - 1) * additionalDuration) : baseDuration;
+    
+    console.log(`Preloading date: ${currentPreloadDate} with duration: ${duration}`);
+    
+    try {
+        const response = await apiGet({
+            action: 'getTimeSlots',
+            date: currentPreloadDate,
+            duration: duration
+        });
+        
+        if (response.success) {
+            // Store in cache
+            timeSlotsCache[currentPreloadDate] = response.timeSlots;
+            console.log(`Cached ${response.timeSlots.length} slots for ${currentPreloadDate}`);
+        }
+    } catch (error) {
+        console.error(`Failed to preload ${currentPreloadDate}:`, error);
+    }
+    
+    // Continue with next date (with small delay to not overload server)
+    setTimeout(preloadNextDate, 100);
+}
+
+/**
+ * Pauses the preloading process
+ * Called when user reaches step 3 and needs immediate loading of selected date
+ */
+function pausePreloading() {
+    preloadPaused = true;
+    console.log('Preloading paused');
+}
+
+/**
+ * Resumes the preloading process
+ * Called after priority load is complete
+ */
+function resumePreloading() {
+    if (isPreloading && preloadPaused) {
+        preloadPaused = false;
+        console.log('Preloading resumed');
+        preloadNextDate();
+    }
+}
+
+/**
+ * Clears the cache for a specific date
+ * Called when a slot was taken to ensure fresh data
+ * 
+ * @param {string} dateStr - Date string in YYYY-MM-DD format
+ */
+function clearCacheForDate(dateStr) {
+    if (timeSlotsCache[dateStr]) {
+        delete timeSlotsCache[dateStr];
+        console.log(`Cache cleared for ${dateStr}`);
+    }
+}
+
+/**
+ * Clears the entire time slots cache
+ * Called when resetting the form or when data might be stale
+ */
+function clearAllCache() {
+    timeSlotsCache = {};
+    console.log('All cache cleared');
+}
 </script>
 </body>
 </html>
