@@ -2276,6 +2276,10 @@
             const timeSlotsGrid = document.getElementById('timeSlotsGrid');
             const noSlotsMessage = document.getElementById('noSlotsMessage');
 
+            // Always hide the "no slots" message first - it will be shown again if needed
+            // This fixes a bug where the message remained visible when switching dates
+            noSlotsMessage.classList.add('hidden');
+
             if (timeSlots.length === 0) {
                 noSlotsMessage.classList.remove('hidden');
                 return;
