@@ -24,1074 +24,1102 @@
  * @created 2025-12-18
  */
 -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-translate="page-title">קביעת פגישה למדידה</title>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
-<style>
-/* Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #e91e8c 0%, #d4a574 100%);
-    min-height: 100vh;
-    color: #333;
-    line-height: 1.6;
-}
-
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    min-height: 100dvh;
-    background: white;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-}
-
-/* Header Styles */
-.header {
-    background: linear-gradient(135deg, #e91e8c 0%, #d4a574 100%);
-    color: white;
-    padding: 2rem 1.5rem;
-    text-align: center;
-}
-
-.header-content {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.header-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    opacity: 0.9;
-}
-
-.header-title {
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.header-subtitle {
-    font-size: 1.1rem;
-    opacity: 0.9;
-    font-weight: 300;
-}
-
-/* Main Content */
-.main-content {
-    flex: 1;
-    padding: 2rem 1.5rem;
-    width: 100%;
-}
-
-/* Step Container */
-.step-container {
-    max-width: 600px;
-    margin: 0 auto;
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-.step-container.hidden {
-    display: none;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Step Header */
-.step-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid #f0f0f0;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.step-header .step-content {
-    display: flex;
-    align-items: center;
-}
-
-.step-number {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #e91e8c, #d4a574);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 1.2rem;
-    margin-left: 1rem;
-}
-
-.step-title {
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: #333;
-}
-
-/* Language Toggle Button */
-.language-toggle {
-    display: flex;
-    align-items: center;
-}
-
-.btn-language {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    border: 2px solid #dee2e6;
-    border-radius: 25px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #495057;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: inherit;
-}
-
-.btn-language:hover {
-    background: linear-gradient(135deg, #e9ecef, #dee2e6);
-    border-color: #adb5bd;
-    color: #212529;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.btn-language i {
-    font-size: 1rem;
-    color: #e91e8c;
-}
-
-/* RTL/LTR Support */
-[dir="ltr"] .step-number {
-    margin-left: 0;
-    margin-right: 1rem;
-}
-
-[dir="ltr"] .form-label i {
-    margin-left: 0;
-    margin-right: 0.5rem;
-}
-
-[dir="ltr"] .btn .fas {
-    order: 2;
-}
-
-[dir="ltr"] .btn span {
-    order: 1;
-}
-
-[dir="ltr"] .calendar-nav#prevMonth i:before {
-    content: "\f053"; /* fa-chevron-left */
-}
-
-[dir="ltr"] .calendar-nav#nextMonth i:before {
-    content: "\f054"; /* fa-chevron-right */
-}
-
-[dir="ltr"] .step-actions {
-    flex-direction: row-reverse;
-}
-
-/* English Font Support */
-[lang="en"] {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-/* Form Styles */
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-label {
-    display: flex;
-    align-items: center;
-    font-weight: 500;
-    color: #555;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-}
-
-.form-label i {
-    margin-left: 0.5rem;
-    color: #e91e8c;
-}
-
-.form-input,
-.form-select {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-family: inherit;
-    transition: all 0.3s ease;
-    background: white;
-}
-
-.form-input:focus,
-.form-select:focus {
-    outline: none;
-    border-color: #e91e8c;
-    box-shadow: 0 0 0 3px rgba(233, 30, 140, 0.1);
-}
-
-.form-input::placeholder {
-    color: #999;
-}
-
-/* Duration Info */
-.duration-info {
-    margin-top: 0.5rem;
-    padding: 0.75rem;
-    background: linear-gradient(135deg, #fce4ec, #fff8e1);
-    border-radius: 6px;
-    font-size: 0.9rem;
-    color: #ad1457;
-    border-right: 4px solid #d4a574;
-    display: none;
-}
-
-.duration-info.show {
-    display: block;
-    animation: slideDown 0.3s ease;
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        max-height: 0;
-    }
-    to {
-        opacity: 1;
-        max-height: 100px;
-    }
-}
-
-/* Error Messages */
-.error-message {
-    color: #d32f2f;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-    display: none;
-}
-
-.error-message.show {
-    display: block;
-}
-
-/* Button Styles */
-.btn {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    font-family: inherit;
-}
-
-.btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, #e91e8c, #c2185b);
-    color: white;
-}
-
-.btn-primary:hover:not(:disabled) {
-    background: linear-gradient(135deg, #c2185b, #ad1457);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(233, 30, 140, 0.3);
-}
-
-.btn-secondary {
-    background: #f5f5f5;
-    color: #666;
-    border: 1px solid #ddd;
-}
-
-.btn-secondary:hover {
-    background: #e0e0e0;
-    color: #333;
-}
-
-.btn-success {
-    background: linear-gradient(135deg, #d4a574, #c9a066);
-    color: white;
-}
-
-.btn-success:hover {
-    background: linear-gradient(135deg, #c9a066, #b8956a);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
-}
-
-/* Step Actions */
-.step-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-    gap: 1rem;
-}
-
-/* Calendar Styles */
-.calendar-container {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    margin-bottom: 2rem;
-}
-
-.calendar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.5rem;
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    border-bottom: 1px solid #dee2e6;
-}
-
-.calendar-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #333;
-}
-
-.calendar-nav {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    color: #666;
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-}
-
-.calendar-nav:hover {
-    background: #e0e0e0;
-    color: #333;
-}
-
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-    background: #f0f0f0;
-    padding: 1px;
-}
-
-.calendar-day {
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 500;
-    position: relative;
-}
-
-.calendar-day:hover {
-    background: #fce4ec;
-}
-
-.calendar-day.disabled {
-    color: #ccc;
-    cursor: not-allowed;
-    background: #f9f9f9;
-}
-
-.calendar-day.selected {
-    background: linear-gradient(135deg, #e91e8c, #c2185b);
-    color: white;
-}
-
-.calendar-day.today {
-    background: #fff8e1;
-    color: #d4a574;
-    font-weight: 600;
-}
-
-.calendar-day.today.selected {
-    background: linear-gradient(135deg, #e91e8c, #c2185b);
-    color: white;
-}
-
-/* Day Headers */
-.calendar-day-header {
-    background: #f8f9fa;
-    color: #666;
-    font-weight: 600;
-    font-size: 0.875rem;
-    cursor: default;
-}
-
-/* Time Slots */
-.time-slots-container {
-    margin-bottom: 2rem;
-}
-
-.selected-date-info {
-    background: linear-gradient(135deg, #fce4ec, #fff8e1);
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    font-weight: 500;
-    color: #ad1457;
-    border-right: 4px solid #e91e8c;
-}
-
-.time-slots-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 0.75rem;
-    margin-top: 1rem;
-}
-
-.time-slot {
-    padding: 0.75rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: white;
-    font-weight: 500;
-}
-
-.time-slot:hover {
-    border-color: #e91e8c;
-    background: #fce4ec;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.time-slot.selected {
-    background: linear-gradient(135deg, #e91e8c, #c2185b);
-    color: white;
-    border-color: #c2185b;
-}
-
-.time-slot-time {
-    font-size: 1rem;
-    margin-bottom: 0.25rem;
-}
-
-.time-slot-duration {
-    font-size: 0.8rem;
-    opacity: 0.8;
-}
-
-/* Loading States */
-.loading {
-    text-align: center;
-    padding: 2rem;
-    color: #666;
-}
-
-.loading i {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #e91e8c;
-}
-
-.no-slots-message {
-    text-align: center;
-    padding: 3rem 2rem;
-    color: #666;
-}
-
-.no-slots-message i {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    color: #ccc;
-}
-
-/* Confirmation Styles */
-.confirmation-details {
-    margin-bottom: 2rem;
-}
-
-.confirmation-card {
-    background: linear-gradient(135deg, #fce4ec, #fff8e1);
-    border-radius: 12px;
-    padding: 2rem;
-    border-right: 4px solid #d4a574;
-}
-
-.confirmation-title {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    color: #ad1457;
-    font-size: 1.3rem;
-}
-
-.confirmation-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.confirmation-item:last-child {
-    border-bottom: none;
-}
-
-.confirmation-label {
-    font-weight: 500;
-    color: #666;
-}
-
-.confirmation-value {
-    font-weight: 600;
-    color: #333;
-}
-
-/* Success Message */
-.success-message {
-    text-align: center;
-    padding: 2rem;
-}
-
-.success-icon {
-    font-size: 4rem;
-    color: #d4a574;
-    margin-bottom: 1rem;
-}
-
-.success-title {
-    font-size: 2rem;
-    font-weight: 600;
-    color: #ad1457;
-    margin-bottom: 0.5rem;
-}
-
-.success-subtitle {
-    color: #666;
-    margin-bottom: 2rem;
-}
-
-.success-details {
-    background: linear-gradient(135deg, #fce4ec, #fff8e1);
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin-bottom: 2rem;
-    text-align: right;
-}
-
-.success-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-}
-
-/* Loading Overlay */
-.loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-.loading-overlay.hidden {
-    display: none;
-}
-
-.loading-spinner {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.loading-spinner i {
-    font-size: 2rem;
-    color: #e91e8c;
-    margin-bottom: 1rem;
-}
-
-/* Footer */
-.footer {
-    background: #f8f9fa;
-    padding: 1rem;
-    text-align: center;
-    color: #666;
-    font-size: 0.875rem;
-    border-top: 1px solid #e0e0e0;
-}
-
-.footer-link {
-    color: #d4a574;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.footer-link:hover {
-    color: #e91e8c;
-    text-decoration: underline;
-}
-
-.mb-2 { margin-bottom: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-
-/* Mobile Responsiveness - Tablet and larger phones (768px and below) */
-@media screen and (max-width: 768px) {
-    /* Standard mobile form inputs and selects */
-    .form-input, .form-select {
-        padding: 0.875rem 1rem;
-        font-size: 1rem;
-        height: auto;
-        line-height: 1.5;
-        border-radius: 8px;
-    }
-
-    /* Standard mobile buttons */
-    .btn {
-        padding: 0.875rem 1.25rem;
-        font-size: 1rem;
-        font-weight: 500;
-        height: auto;
-        min-height: 48px;
-        border-radius: 8px;
-    }
-
-    /* Calendar grid - ensure all 7 days fit */
-    .calendar-container {
-        overflow-x: hidden;
-        width: 100%;
-    }
-
-    .calendar-grid {
-        gap: 2px;
-        padding: 2px;
-    }
-
-    .calendar-day {
-        aspect-ratio: 1;
-        min-width: 0;
-        font-size: 0.875rem;
-        font-weight: 500;
-        border-radius: 6px;
-    }
-
-    .calendar-day-header {
-        font-size: 0.75rem;
-    }
-
-    .calendar-nav {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-        padding: 0.5rem;
-    }
-
-    .calendar-header {
-        padding: 0.75rem 1rem;
-    }
-
-    .calendar-title {
-        font-size: 1.1rem;
-    }
-
-    /* Time slots grid - 2 columns */
-    .time-slots-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        margin-top: 1rem;
-    }
-
-    .time-slot {
-        padding: 0.75rem 0.5rem;
-        font-size: 0.9rem;
-        font-weight: 500;
-        height: auto;
-        min-height: 50px;
-        border-radius: 8px;
-    }
-
-    .time-slot-time {
-        font-size: 0.9rem;
-    }
-
-    /* Headers and titles - standard mobile sizes */
-    .header {
-        padding: 1.5rem 1rem;
-    }
-
-    .header-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-    }
-
-    .header-subtitle {
-        font-size: 0.9rem;
-    }
-
-    .header-icon {
-        font-size: 2rem;
-    }
-
-    .step-title {
-        font-size: 1.25rem;
-        font-weight: 600;
-    }
-
-    .form-label {
-        font-size: 0.9rem;
-        font-weight: 500;
-        margin-bottom: 0.5rem;
-    }
-
-    /* Step containers */
-    .step-container {
-        max-width: 100%;
-        width: 100%;
-        margin: 0;
-    }
-
-    .main-content {
-        padding: 1rem;
-    }
-
-    .form-group {
-        margin-bottom: 1.25rem;
-    }
-
-    /* Step header */
-    .step-header {
-        margin-bottom: 1.5rem;
-        padding-bottom: 0.75rem;
-    }
-
-    .step-number {
-        width: 32px;
-        height: 32px;
-        font-size: 1rem;
-        margin-left: 0.75rem;
-    }
-
-    /* Step actions - sticky at bottom for mobile */
-    .step-actions {
-        position: sticky;
-        bottom: 0;
-        background: white;
-        padding: 1rem 0;
-        margin-top: 1.5rem;
-        border-top: 1px solid #e0e0e0;
-        z-index: 10;
-    }
-
-    /* Time slots container */
-    .time-slots-container {
-        margin-bottom: 0;
-        padding-bottom: 80px; /* Space for sticky buttons */
-    }
-
-    .selected-date-info {
-        padding: 0.75rem;
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-    }
-
-    /* Confirmation items */
-    .confirmation-item {
-        padding: 0.75rem;
-        font-size: 0.9rem;
-    }
-
-    .confirmation-card {
-        padding: 1rem;
-    }
-
-    .confirmation-title {
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
-    }
-
-    .container {
-        max-width: 100vw;
-        min-width: 0;
-        margin: 0;
-        border-radius: 0;
-        box-shadow: none;
-    }
-
-    body, html {
-        padding: 0;
-        margin: 0;
-        overflow-x: hidden;
-    }
-
-    /* Duration info */
-    .duration-info {
-        font-size: 0.85rem;
-        padding: 0.5rem;
-    }
-
-    /* Loading states */
-    .loading {
-        padding: 1.5rem;
-    }
-
-    .loading i {
-        font-size: 1.5rem;
-    }
-
-    .no-slots-message {
-        padding: 2rem 1rem;
-    }
-
-    .no-slots-message i {
-        font-size: 2rem;
-    }
-
-    /* Language toggle */
-    .btn-language {
-        padding: 0.4rem 0.75rem;
-        font-size: 0.8rem;
-    }
-}
-
-/* Mobile Responsiveness - Small phones (480px and below) */
-@media screen and (max-width: 480px) {
-    /* Slightly smaller for very small screens */
-    .form-input, .form-select {
-        padding: 0.75rem;
-        font-size: 1rem;
-    }
-
-    /* Buttons */
-    .btn {
-        padding: 0.75rem 1rem;
-        font-size: 0.95rem;
-        min-height: 44px;
-        width: 100%;
-    }
-
-    /* Step actions - full width buttons stacked */
-    .step-actions {
-        flex-direction: column-reverse;
-        gap: 0.75rem;
-    }
-
-    .step-actions .btn {
-        width: 100%;
-    }
-
-    /* Calendar for small phones - even more compact */
-    .calendar-day {
-        font-size: 0.8rem;
-        border-radius: 4px;
-    }
-
-    .calendar-day-header {
-        font-size: 0.7rem;
-    }
-
-    .calendar-nav {
-        width: 36px;
-        height: 36px;
-        font-size: 0.9rem;
-    }
-
-    .calendar-title {
-        font-size: 1rem;
-    }
-
-    /* Time slots - 2 columns still works on small phones */
-    .time-slots-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 6px;
-    }
-
-    .time-slot {
-        padding: 0.625rem 0.375rem;
-        font-size: 0.85rem;
-        min-height: 44px;
-    }
-
-    /* Headers for small phones */
-    .header-title {
-        font-size: 1.375rem;
-    }
-
-    .header-subtitle {
-        font-size: 0.85rem;
-    }
-
-    .header-icon {
-        font-size: 1.75rem;
-    }
-
-    .step-title {
-        font-size: 1.125rem;
-    }
-
-    .form-label {
-        font-size: 0.875rem;
-    }
-
-    /* Main content padding */
-    .main-content {
-        padding: 0.875rem;
-    }
-
-    .header {
-        padding: 1.25rem 0.875rem;
-    }
-
-    /* Confirmation items */
-    .confirmation-item {
-        padding: 0.625rem;
-        font-size: 0.85rem;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.25rem;
-    }
-
-    .confirmation-label {
-        font-weight: 600;
-        font-size: 0.8rem;
-        color: #666;
-    }
-
-    .confirmation-value {
-        font-size: 0.9rem;
-        font-weight: 500;
-    }
-
-    .confirmation-card {
-        padding: 0.875rem;
-    }
-
-    .confirmation-title {
-        font-size: 1rem;
-    }
-
-    /* Step header for very small phones */
-    .step-header {
-        gap: 0.75rem;
-        margin-bottom: 1.25rem;
-    }
-
-    .step-number {
-        width: 28px;
-        height: 28px;
-        font-size: 0.9rem;
-        margin-left: 0.5rem;
-    }
-
-    /* Language toggle smaller */
-    .btn-language {
-        padding: 0.35rem 0.625rem;
-        font-size: 0.75rem;
-    }
-
-    /* Selected date info */
-    .selected-date-info {
-        font-size: 0.85rem;
-        padding: 0.625rem;
-    }
-
-    /* Duration info */
-    .duration-info {
-        font-size: 0.8rem;
-    }
-
-    /* Footer */
-    .footer {
-        font-size: 0.75rem;
-        padding: 0.75rem;
-    }
-
-    /* Success message */
-    .success-icon {
-        font-size: 3rem;
-    }
-
-    .success-title {
-        font-size: 1.25rem;
-    }
-
-    .success-subtitle {
-        font-size: 0.9rem;
-    }
-
-    .success-details {
-        padding: 1rem;
-    }
-}
-
-/* Utility Classes */
-.hidden {
-    display: none !important;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.mt-1 { margin-top: 0.5rem; }
-.mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
-.mb-1 { margin-bottom: 0.5rem; }
-</style>
+
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #e91e8c 0%, #d4a574 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: 100dvh;
+            background: white;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #e91e8c 0%, #d4a574 100%);
+            color: white;
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+
+        .header-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem 1.5rem;
+            width: 100%;
+        }
+
+        /* Step Container */
+        .step-container {
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .step-container.hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Step Header */
+        .step-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .step-header .step-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #e91e8c, #d4a574);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Language Toggle Button */
+        .language-toggle {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-language {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 2px solid #dee2e6;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #495057;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .btn-language:hover {
+            background: linear-gradient(135deg, #e9ecef, #dee2e6);
+            border-color: #adb5bd;
+            color: #212529;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-language i {
+            font-size: 1rem;
+            color: #e91e8c;
+        }
+
+        /* RTL/LTR Support */
+        [dir="ltr"] .step-number {
+            margin-left: 0;
+            margin-right: 1rem;
+        }
+
+        [dir="ltr"] .form-label i {
+            margin-left: 0;
+            margin-right: 0.5rem;
+        }
+
+        [dir="ltr"] .btn .fas {
+            order: 2;
+        }
+
+        [dir="ltr"] .btn span {
+            order: 1;
+        }
+
+        [dir="ltr"] .calendar-nav#prevMonth i:before {
+            content: "\f053";
+            /* fa-chevron-left */
+        }
+
+        [dir="ltr"] .calendar-nav#nextMonth i:before {
+            content: "\f054";
+            /* fa-chevron-right */
+        }
+
+        [dir="ltr"] .step-actions {
+            flex-direction: row-reverse;
+        }
+
+        /* English Font Support */
+        [lang="en"] {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .form-label i {
+            margin-left: 0.5rem;
+            color: #e91e8c;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #e91e8c;
+            box-shadow: 0 0 0 3px rgba(233, 30, 140, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #999;
+        }
+
+        /* Duration Info */
+        .duration-info {
+            margin-top: 0.5rem;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #fce4ec, #fff8e1);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: #ad1457;
+            border-right: 4px solid #d4a574;
+            display: none;
+        }
+
+        .duration-info.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+
+            to {
+                opacity: 1;
+                max-height: 100px;
+            }
+        }
+
+        /* Error Messages */
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #e91e8c, #c2185b);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: linear-gradient(135deg, #c2185b, #ad1457);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(233, 30, 140, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #d4a574, #c9a066);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #c9a066, #b8956a);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+        }
+
+        /* Step Actions */
+        .step-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        /* Calendar Styles */
+        .calendar-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .calendar-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .calendar-nav {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #666;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-nav:hover {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #f0f0f0;
+            padding: 1px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .calendar-day:hover {
+            background: #fce4ec;
+        }
+
+        .calendar-day.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+            background: #f9f9f9;
+        }
+
+        .calendar-day.selected {
+            background: linear-gradient(135deg, #e91e8c, #c2185b);
+            color: white;
+        }
+
+        .calendar-day.today {
+            background: #fff8e1;
+            color: #d4a574;
+            font-weight: 600;
+        }
+
+        .calendar-day.today.selected {
+            background: linear-gradient(135deg, #e91e8c, #c2185b);
+            color: white;
+        }
+
+        /* Day Headers */
+        .calendar-day-header {
+            background: #f8f9fa;
+            color: #666;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: default;
+        }
+
+        /* Time Slots */
+        .time-slots-container {
+            margin-bottom: 2rem;
+        }
+
+        .selected-date-info {
+            background: linear-gradient(135deg, #fce4ec, #fff8e1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+            color: #ad1457;
+            border-right: 4px solid #e91e8c;
+        }
+
+        .time-slots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .time-slot {
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            font-weight: 500;
+        }
+
+        .time-slot:hover {
+            border-color: #e91e8c;
+            background: #fce4ec;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .time-slot.selected {
+            background: linear-gradient(135deg, #e91e8c, #c2185b);
+            color: white;
+            border-color: #c2185b;
+        }
+
+        .time-slot-time {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .time-slot-duration {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* Loading States */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .loading i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #e91e8c;
+        }
+
+        .no-slots-message {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #666;
+        }
+
+        .no-slots-message i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ccc;
+        }
+
+        /* Confirmation Styles */
+        .confirmation-details {
+            margin-bottom: 2rem;
+        }
+
+        .confirmation-card {
+            background: linear-gradient(135deg, #fce4ec, #fff8e1);
+            border-radius: 12px;
+            padding: 2rem;
+            border-right: 4px solid #d4a574;
+        }
+
+        .confirmation-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #ad1457;
+            font-size: 1.3rem;
+        }
+
+        .confirmation-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .confirmation-item:last-child {
+            border-bottom: none;
+        }
+
+        .confirmation-label {
+            font-weight: 500;
+            color: #666;
+        }
+
+        .confirmation-value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Success Message */
+        .success-message {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #d4a574;
+            margin-bottom: 1rem;
+        }
+
+        .success-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #ad1457;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .success-details {
+            background: linear-gradient(135deg, #fce4ec, #fff8e1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: right;
+        }
+
+        .success-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .loading-overlay.hidden {
+            display: none;
+        }
+
+        .loading-spinner {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .loading-spinner i {
+            font-size: 2rem;
+            color: #e91e8c;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #f8f9fa;
+            padding: 1rem;
+            text-align: center;
+            color: #666;
+            font-size: 0.875rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer-link {
+            color: #d4a574;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: #e91e8c;
+            text-decoration: underline;
+        }
+
+        .mb-2 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-3 {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Mobile Responsiveness - Tablet and larger phones (768px and below) */
+        @media screen and (max-width: 768px) {
+
+            /* Standard mobile form inputs and selects */
+            .form-input,
+            .form-select {
+                padding: 0.875rem 1rem;
+                font-size: 1rem;
+                height: auto;
+                line-height: 1.5;
+                border-radius: 8px;
+            }
+
+            /* Standard mobile buttons */
+            .btn {
+                padding: 0.875rem 1.25rem;
+                font-size: 1rem;
+                font-weight: 500;
+                height: auto;
+                min-height: 48px;
+                border-radius: 8px;
+            }
+
+            /* Calendar grid - ensure all 7 days fit */
+            .calendar-container {
+                overflow-x: hidden;
+                width: 100%;
+            }
+
+            .calendar-grid {
+                gap: 2px;
+                padding: 2px;
+            }
+
+            .calendar-day {
+                aspect-ratio: 1;
+                min-width: 0;
+                font-size: 0.875rem;
+                font-weight: 500;
+                border-radius: 6px;
+            }
+
+            .calendar-day-header {
+                font-size: 0.75rem;
+            }
+
+            .calendar-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                padding: 0.5rem;
+            }
+
+            .calendar-header {
+                padding: 0.75rem 1rem;
+            }
+
+            .calendar-title {
+                font-size: 1.1rem;
+            }
+
+            /* Time slots grid - 2 columns */
+            .time-slots-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                margin-top: 1rem;
+            }
+
+            .time-slot {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.9rem;
+                font-weight: 500;
+                height: auto;
+                min-height: 50px;
+                border-radius: 8px;
+            }
+
+            .time-slot-time {
+                font-size: 0.9rem;
+            }
+
+            /* Headers and titles - standard mobile sizes */
+            .header {
+                padding: 1.5rem 1rem;
+            }
+
+            .header-title {
+                font-size: 1.5rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+            }
+
+            .header-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .header-icon {
+                font-size: 2rem;
+            }
+
+            .step-title {
+                font-size: 1.25rem;
+                font-weight: 600;
+            }
+
+            .form-label {
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+            }
+
+            /* Step containers */
+            .step-container {
+                max-width: 100%;
+                width: 100%;
+                margin: 0;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .form-group {
+                margin-bottom: 1.25rem;
+            }
+
+            /* Step header */
+            .step-header {
+                margin-bottom: 1.5rem;
+                padding-bottom: 0.75rem;
+            }
+
+            .step-number {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+                margin-left: 0.75rem;
+            }
+
+            /* Step actions - sticky at bottom for mobile */
+            .step-actions {
+                position: sticky;
+                bottom: 0;
+                background: white;
+                padding: 1rem 0;
+                margin-top: 1.5rem;
+                border-top: 1px solid #e0e0e0;
+                z-index: 10;
+            }
+
+            /* Time slots container */
+            .time-slots-container {
+                margin-bottom: 0;
+                padding-bottom: 80px;
+                /* Space for sticky buttons */
+            }
+
+            .selected-date-info {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            }
+
+            /* Confirmation items */
+            .confirmation-item {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            .confirmation-card {
+                padding: 1rem;
+            }
+
+            .confirmation-title {
+                font-size: 1.1rem;
+                margin-bottom: 1rem;
+            }
+
+            .container {
+                max-width: 100vw;
+                min-width: 0;
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            body,
+            html {
+                padding: 0;
+                margin: 0;
+                overflow-x: hidden;
+            }
+
+            /* Duration info */
+            .duration-info {
+                font-size: 0.85rem;
+                padding: 0.5rem;
+            }
+
+            /* Loading states */
+            .loading {
+                padding: 1.5rem;
+            }
+
+            .loading i {
+                font-size: 1.5rem;
+            }
+
+            .no-slots-message {
+                padding: 2rem 1rem;
+            }
+
+            .no-slots-message i {
+                font-size: 2rem;
+            }
+
+            /* Language toggle */
+            .btn-language {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Mobile Responsiveness - Small phones (480px and below) */
+        @media screen and (max-width: 480px) {
+
+            /* Slightly smaller for very small screens */
+            .form-input,
+            .form-select {
+                padding: 0.75rem;
+                font-size: 1rem;
+            }
+
+            /* Buttons */
+            .btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.95rem;
+                min-height: 44px;
+                width: 100%;
+            }
+
+            /* Step actions - full width buttons stacked */
+            .step-actions {
+                flex-direction: column-reverse;
+                gap: 0.75rem;
+            }
+
+            .step-actions .btn {
+                width: 100%;
+            }
+
+            /* Calendar for small phones - even more compact */
+            .calendar-day {
+                font-size: 0.8rem;
+                border-radius: 4px;
+            }
+
+            .calendar-day-header {
+                font-size: 0.7rem;
+            }
+
+            .calendar-nav {
+                width: 36px;
+                height: 36px;
+                font-size: 0.9rem;
+            }
+
+            .calendar-title {
+                font-size: 1rem;
+            }
+
+            /* Time slots - 2 columns still works on small phones */
+            .time-slots-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+
+            .time-slot {
+                padding: 0.625rem 0.375rem;
+                font-size: 0.85rem;
+                min-height: 44px;
+            }
+
+            /* Headers for small phones */
+            .header-title {
+                font-size: 1.375rem;
+            }
+
+            .header-subtitle {
+                font-size: 0.85rem;
+            }
+
+            .header-icon {
+                font-size: 1.75rem;
+            }
+
+            .step-title {
+                font-size: 1.125rem;
+            }
+
+            .form-label {
+                font-size: 0.875rem;
+            }
+
+            /* Main content padding */
+            .main-content {
+                padding: 0.875rem;
+            }
+
+            .header {
+                padding: 1.25rem 0.875rem;
+            }
+
+            /* Confirmation items */
+            .confirmation-item {
+                padding: 0.625rem;
+                font-size: 0.85rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.25rem;
+            }
+
+            .confirmation-label {
+                font-weight: 600;
+                font-size: 0.8rem;
+                color: #666;
+            }
+
+            .confirmation-value {
+                font-size: 0.9rem;
+                font-weight: 500;
+            }
+
+            .confirmation-card {
+                padding: 0.875rem;
+            }
+
+            .confirmation-title {
+                font-size: 1rem;
+            }
+
+            /* Step header for very small phones */
+            .step-header {
+                gap: 0.75rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .step-number {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+                margin-left: 0.5rem;
+            }
+
+            /* Language toggle smaller */
+            .btn-language {
+                padding: 0.35rem 0.625rem;
+                font-size: 0.75rem;
+            }
+
+            /* Selected date info */
+            .selected-date-info {
+                font-size: 0.85rem;
+                padding: 0.625rem;
+            }
+
+            /* Duration info */
+            .duration-info {
+                font-size: 0.8rem;
+            }
+
+            /* Footer */
+            .footer {
+                font-size: 0.75rem;
+                padding: 0.75rem;
+            }
+
+            /* Success message */
+            .success-icon {
+                font-size: 3rem;
+            }
+
+            .success-title {
+                font-size: 1.25rem;
+            }
+
+            .success-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .success-details {
+                padding: 1rem;
+            }
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 {
+            margin-top: 0.5rem;
+        }
+
+        .mt-2 {
+            margin-top: 1rem;
+        }
+
+        .mt-3 {
+            margin-top: 1.5rem;
+        }
+
+        .mb-1 {
+            margin-bottom: 0.5rem;
+        }
+    </style>
 
 </head>
+
 <body>
     <div class="container">
         <!-- Header -->
@@ -1120,82 +1148,67 @@ body {
                         </button>
                     </div>
                 </div>
-                
+
                 <form autocomplete="on">
-                
-                <div class="form-group">
-                    <label for="clientName" class="form-label">
-                        <i class="fas fa-user"></i>
-                        <span data-translate="label-name">שם מלא</span>
-                    </label>
-                    <input type="text" 
-                           id="clientName" 
-                           name="name" 
-                           class="form-input" 
-                           data-translate-placeholder="placeholder-name"
-                           placeholder="הכניסי את שמך המלא" 
-                           autocomplete="name"
-                           required>
-                    <div class="error-message" id="nameError"></div>
-                </div>
 
-                <div class="form-group">
-                    <label for="clientPhone" class="form-label">
-                        <i class="fas fa-phone"></i>
-                        <span data-translate="label-phone">מספר טלפון</span>
-                    </label>
-                    <input type="tel" 
-                           id="clientPhone" 
-                           name="phone" 
-                           class="form-input" 
-                           data-translate-placeholder="placeholder-phone"
-                           placeholder="050-1234567" 
-                           autocomplete="tel"
-                           required>
-                    <div class="error-message" id="phoneError"></div>
-                </div>
+                    <div class="form-group">
+                        <label for="clientName" class="form-label">
+                            <i class="fas fa-user"></i>
+                            <span data-translate="label-name">שם מלא</span>
+                        </label>
+                        <input type="text" id="clientName" name="name" class="form-input"
+                            data-translate-placeholder="placeholder-name" placeholder="הכניסי את שמך המלא"
+                            autocomplete="name" required>
+                        <div class="error-message" id="nameError"></div>
+                    </div>
 
-                <div class="form-group">
-                    <label for="clientEmail" class="form-label">
-                        <i class="fas fa-envelope"></i>
-                        <span data-translate="label-email">כתובת מייל</span>
-                    </label>
-                    <input type="email" 
-                           id="clientEmail" 
-                           name="email" 
-                           class="form-input" 
-                           data-translate-placeholder="placeholder-email"
-                           placeholder="your-email@example.com" 
-                           autocomplete="email"
-                           required>
-                    <div class="error-message" id="emailError"></div>
-                </div>
+                    <div class="form-group">
+                        <label for="clientPhone" class="form-label">
+                            <i class="fas fa-phone"></i>
+                            <span data-translate="label-phone">מספר טלפון</span>
+                        </label>
+                        <input type="tel" id="clientPhone" name="phone" class="form-input"
+                            data-translate-placeholder="placeholder-phone" placeholder="050-1234567" autocomplete="tel"
+                            required>
+                        <div class="error-message" id="phoneError"></div>
+                    </div>
 
-                <div class="form-group">
-                    <label for="numberOfPeople" class="form-label">
-                        <i class="fas fa-users"></i>
-                        <span data-translate="label-people">כמה בנות באות למדידה?</span>
-                    </label>
-                    <select id="numberOfPeople" class="form-select" required>
-                        <option value="" data-translate="select-people">בחרי מספר בנות</option>
-                        <option value="1" data-translate="people-1">1 בת</option>
-                        <option value="2" data-translate="people-2">2 בנות</option>
-                        <option value="3" data-translate="people-3">3 בנות</option>
-                        <option value="4" data-translate="people-4">4 בנות</option>
-                        <option value="5" data-translate="people-5">5 בנות</option>
-                        <option value="6" data-translate="people-6">6 בנות</option>
-                        <option value="7" data-translate="people-7">7 בנות</option>
-                        <option value="8" data-translate="people-8">8 בנות</option>
-                        <option value="9" data-translate="people-9">9 בנות</option>
-                    </select>
-                    <div class="duration-info" id="durationInfo"></div>
-                    <div class="error-message" id="peopleError"></div>
-                </div>
+                    <div class="form-group">
+                        <label for="clientEmail" class="form-label">
+                            <i class="fas fa-envelope"></i>
+                            <span data-translate="label-email">כתובת מייל</span>
+                        </label>
+                        <input type="email" id="clientEmail" name="email" class="form-input"
+                            data-translate-placeholder="placeholder-email" placeholder="your-email@example.com"
+                            autocomplete="email" required>
+                        <div class="error-message" id="emailError"></div>
+                    </div>
 
-                <button type="button" class="btn btn-primary" id="continueToDate" disabled>
-                    <span data-translate="continue-date">המשך לבחירת תאריך</span>
-                    <i class="fas fa-arrow-left" id="arrowIcon"></i>
-                </button>
+                    <div class="form-group">
+                        <label for="numberOfPeople" class="form-label">
+                            <i class="fas fa-users"></i>
+                            <span data-translate="label-people">כמה בנות באות למדידה?</span>
+                        </label>
+                        <select id="numberOfPeople" class="form-select" required>
+                            <option value="" data-translate="select-people">בחרי מספר בנות</option>
+                            <option value="1" data-translate="people-1">1 בת</option>
+                            <option value="2" data-translate="people-2">2 בנות</option>
+                            <option value="3" data-translate="people-3">3 בנות</option>
+                            <option value="4" data-translate="people-4">4 בנות</option>
+                            <option value="5" data-translate="people-5">5 בנות</option>
+                            <option value="6" data-translate="people-6">6 בנות</option>
+                            <option value="7" data-translate="people-7">7 בנות</option>
+                            <option value="8" data-translate="people-8">8 בנות</option>
+                            <option value="9" data-translate="people-9">9 בנות</option>
+                        </select>
+                        <div class="duration-info" id="durationInfo"></div>
+                        <div class="error-message" id="peopleError"></div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" id="continueToDate" disabled>
+                        <span data-translate="continue-date">המשך לבחירת תאריך</span>
+                        <i class="fas fa-arrow-left" id="arrowIcon"></i>
+                    </button>
                 </form>
             </div>
 
@@ -1284,37 +1297,37 @@ body {
                             <i class="fas fa-check-circle"></i>
                             <span data-translate="confirmation-title">סיכום הפגישה</span>
                         </h3>
-                        
+
                         <div class="confirmation-item">
                             <span class="confirmation-label" data-translate="confirm-name">שם:</span>
                             <span class="confirmation-value" id="confirmName"></span>
                         </div>
-                        
+
                         <div class="confirmation-item">
                             <span class="confirmation-label" data-translate="confirm-phone">טלפון:</span>
                             <span class="confirmation-value" id="confirmPhone"></span>
                         </div>
-                        
+
                         <div class="confirmation-item">
                             <span class="confirmation-label" data-translate="confirm-email">מייל:</span>
                             <span class="confirmation-value" id="confirmEmail"></span>
                         </div>
-                        
+
                         <div class="confirmation-item">
                             <span class="confirmation-label" data-translate="confirm-people">מספר בנות:</span>
                             <span class="confirmation-value" id="confirmPeople"></span>
                         </div>
-                        
+
                         <div class="confirmation-item">
                             <span class="confirmation-label" data-translate="confirm-date">תאריך:</span>
                             <span class="confirmation-value" id="confirmDate"></span>
                         </div>
-                        
+
                         <div class="confirmation-item">
                             <span class="confirmation-label" data-translate="confirm-time">שעה:</span>
                             <span class="confirmation-value" id="confirmTime"></span>
                         </div>
-                        
+
                         <div class="confirmation-item">
                             <span class="confirmation-label" data-translate="confirm-duration">משך הפגישה:</span>
                             <span class="confirmation-value" id="confirmDuration"></span>
@@ -1342,9 +1355,9 @@ body {
                     </div>
                     <h2 class="success-title" data-translate="success-title">הפגישה נקבעה בהצלחה!</h2>
                     <p class="success-subtitle" data-translate="success-subtitle">תקבלי אישור בדוא"ל בקרוב</p>
-                    
+
                     <div class="success-details" id="successDetails"></div>
-                    
+
                     <div class="success-actions">
                         <button type="button" class="btn btn-success" id="addToCalendar">
                             <i class="fas fa-calendar-plus"></i>
@@ -1373,1053 +1386,1062 @@ body {
         </div>
     </div>
 
-<script>
-/**
- * Standalone Client-side JavaScript for the Appointment Booking System
- * 
- * This script handles all the frontend logic including:
- * - Form validation and navigation between steps
- * - Calendar display and date selection
- * - Time slot management and selection
- * - Communication with Google Apps Script backend via fetch API
- * - User interface interactions and animations
- * - Multilingual support (Hebrew/English)
- * 
- * IMPORTANT: This version uses fetch API instead of google.script.run
- * to allow hosting on external servers (GitHub Pages, Firebase, etc.)
- * 
- * @author Moyshi
- * @created 2025-12-18
- */
+    <script>
+        /**
+         * Standalone Client-side JavaScript for the Appointment Booking System
+         * 
+         * This script handles all the frontend logic including:
+         * - Form validation and navigation between steps
+         * - Calendar display and date selection
+         * - Time slot management and selection
+         * - Communication with Google Apps Script backend via fetch API
+         * - User interface interactions and animations
+         * - Multilingual support (Hebrew/English)
+         * 
+         * IMPORTANT: This version uses fetch API instead of google.script.run
+         * to allow hosting on external servers (GitHub Pages, Firebase, etc.)
+         * 
+         * @author Moyshi
+         * @created 2025-12-18
+         */
 
-// ============================================================================
-// CONFIGURATION - UPDATE THIS WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-// ============================================================================
-/**
- * The URL of your deployed Google Apps Script Web App
- * 
- * How to get this URL:
- * 1. Open your Google Apps Script project
- * 2. Click "Deploy" -> "Manage deployments"
- * 3. Copy the "Web app URL" that starts with https://script.google.com/macros/s/...
- * 4. Paste it here
- * 
- * IMPORTANT: Make sure the Web App is deployed with:
- * - Execute as: Me (your email)
- * - Who has access: Anyone
- */
-const API_URL = 'https://script.google.com/macros/s/AKfycby-Sz_7MoVGlmi67f7EKBTrl-P5xtnWa3D4zWMxXerBt8vcmQR5sYwmvTOTSutEvLR2/exec';
-// ============================================================================
+        // ============================================================================
+        // CONFIGURATION - UPDATE THIS WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
+        // ============================================================================
+        /**
+         * The URL of your deployed Google Apps Script Web App
+         * 
+         * How to get this URL:
+         * 1. Open your Google Apps Script project
+         * 2. Click "Deploy" -> "Manage deployments"
+         * 3. Copy the "Web app URL" that starts with https://script.google.com/macros/s/...
+         * 4. Paste it here
+         * 
+         * IMPORTANT: Make sure the Web App is deployed with:
+         * - Execute as: Me (your email)
+         * - Who has access: Anyone
+         */
+        const API_URL = 'https://script.google.com/macros/s/AKfycby-Sz_7MoVGlmi67f7EKBTrl-P5xtnWa3D4zWMxXerBt8vcmQR5sYwmvTOTSutEvLR2/exec';
+        // ============================================================================
 
-// Global variables
-let currentStep = 1;
-let selectedDate = null;
-let selectedTimeSlot = null;
-let appointmentData = {};
-let currentMonth = new Date();
-let config = {};
-let calendarLink = null;
-let currentLanguage = 'he'; // Default to Hebrew
+        // Global variables
+        let currentStep = 1;
+        let selectedDate = null;
+        let selectedTimeSlot = null;
+        let appointmentData = {};
+        let currentMonth = new Date();
+        let config = {};
+        let calendarLink = null;
+        let currentLanguage = 'he'; // Default to Hebrew
 
-// Pre-loading cache and state variables
-// These variables manage background loading of time slots to improve user experience
-let timeSlotsCache = {};          // Cache of available time slots by date string {dateStr: timeSlots[]}
-let preloadQueue = [];            // Queue of dates to preload (working days only)
-let isPreloading = false;         // Flag indicating if preload is currently running
-let preloadPaused = false;        // Flag to pause preload when immediate load is needed
-let currentPreloadDate = null;    // The date currently being preloaded
-let preloadDuration = null;       // Duration for preloading (calculated from number of people)
+        // Pre-loading cache and state variables
+        // These variables manage background loading of time slots to improve user experience
+        let availabilityCache = {};       // Cache of daily availability {dateStr: {businessHours, busySlots}}
+        let preloadQueue = [];            // Queue of dates to preload (working days only)
+        let isPreloading = false;         // Flag indicating if preload is currently running
+        let preloadPaused = false;        // Flag to pause preload when immediate load is needed
+        let currentPreloadDate = null;    // The date currently being preloaded
+        let preloadDuration = null;       // Duration for preloading (calculated from number of people)
 
-// Translations object
-const translations = {
-    he: {
-        'page-title': 'קביעת פגישה למדידה',
-        'header-title': 'קביעת פגישה למדידה',
-        'header-subtitle': 'בחרי את הזמן המתאים לך ונקבע פגישה בקלות',
-        'step1-title': 'פרטים אישיים',
-        'step2-title': 'בחירת תאריך',
-        'step3-title': 'בחירת שעה',
-        'step4-title': 'אישור פרטי הפגישה',
-        'switch-to-english': 'English',
-        'label-name': 'שם מלא',
-        'label-phone': 'מספר טלפון',
-        'label-email': 'כתובת מייל',
-        'label-people': 'כמה בנות באות למדידה?',
-        'placeholder-name': 'הכניסי את שמך המלא',
-        'placeholder-phone': '050-1234567',
-        'placeholder-email': 'your-email@example.com',
-        'select-people': 'בחרי מספר בנות',
-        'people-1': '1 בת',
-        'people-2': '2 בנות',
-        'people-3': '3 בנות',
-        'people-4': '4 בנות',
-        'people-5': '5 בנות',
-        'people-6': '6 בנות',
-        'people-7': '7 בנות',
-        'people-8': '8 בנות',
-        'people-9': '9 בנות',
-        'continue-date': 'המשך לבחירת תאריך',
-        'continue-time': 'המשך לבחירת שעה',
-        'continue-confirm': 'המשך לאישור',
-        'back': 'חזור',
-        'loading-slots': 'טוען שעות פנויות...',
-        'no-slots': 'אין שעות פנויות בתאריך זה',
-        'choose-another': 'אנא בחרי תאריך אחר',
-        'confirmation-title': 'סיכום הפגישה',
-        'confirm-name': 'שם:',
-        'confirm-phone': 'טלפון:',
-        'confirm-email': 'מייל:',
-        'confirm-people': 'מספר בנות:',
-        'confirm-date': 'תאריך:',
-        'confirm-time': 'שעה:',
-        'confirm-duration': 'משך הפגישה:',
-        'confirm-booking': 'אשר ותקבע פגישה',
-        'success-title': 'הפגישה נקבעה בהצלחה!',
-        'success-subtitle': 'תקבלי אישור בדוא"ל בקרוב',
-        'add-calendar': 'הוסיפי ליומן שלך',
-        'book-another': 'קבעי פגישה נוספת',
-        'footer-text': '© 2024 מערכת קביעת תורים - נבנה במיוחד עבורך',
-        'booking-progress': 'קובע את הפגישה...',
-        'duration-text': 'משך הפגישה:',
-        'selected-date': 'תאריך נבחר:',
-        'minutes': 'דקות',
-        'hours': 'שעות',
-        'hour': 'שעה',
-        'and': 'ו-',
-        'girls': 'בנות',
-        'girl': 'בת',
-        'confirm-address': '📍 כתובת:',
-        'error-name-required': 'אנא הכניסי את שמך',
-        'error-name-length': 'השם חייב להכיל לפחות 2 תווים',
-        'error-phone-required': 'אנא הכניסי מספר טלפון',
-        'error-phone-invalid': 'מספר טלפון לא תקין',
-        'error-email-required': 'אנא הכניסי כתובת מייל',
-        'error-email-invalid': 'כתובת מייל לא תקינה',
-        'error-people-required': 'אנא בחרי מספר בנות',
-        'error-api': 'שגיאה בתקשורת עם השרת. נסי שוב.',
-        'error-config': 'שגיאה בטעינת ההגדרות. נסי לרענן את הדף.'
-    },
-    en: {
-        'page-title': 'Book an Appointment for Fitting',
-        'header-title': 'Book an Appointment for Fitting',
-        'header-subtitle': 'Choose your preferred time and book an appointment easily',
-        'step1-title': 'Personal Information',
-        'step2-title': 'Select Date',
-        'step3-title': 'Select Time',
-        'step4-title': 'Confirm Appointment Details',
-        'switch-to-english': 'עברית',
-        'label-name': 'Full Name',
-        'label-phone': 'Phone Number',
-        'label-email': 'Email Address',
-        'label-people': 'How many girls are coming for fitting?',
-        'placeholder-name': 'Enter your full name',
-        'placeholder-phone': '050-1234567',
-        'placeholder-email': 'your-email@example.com',
-        'select-people': 'Select number of girls',
-        'people-1': '1 girl',
-        'people-2': '2 girls',
-        'people-3': '3 girls',
-        'people-4': '4 girls',
-        'people-5': '5 girls',
-        'people-6': '6 girls',
-        'people-7': '7 girls',
-        'people-8': '8 girls',
-        'people-9': '9 girls',
-        'continue-date': 'Continue to Date Selection',
-        'continue-time': 'Continue to Time Selection',
-        'continue-confirm': 'Continue to Confirmation',
-        'back': 'Back',
-        'loading-slots': 'Loading available times...',
-        'no-slots': 'No available times on this date',
-        'choose-another': 'Please choose another date',
-        'confirmation-title': 'Appointment Summary',
-        'confirm-name': 'Name:',
-        'confirm-phone': 'Phone:',
-        'confirm-email': 'Email:',
-        'confirm-people': 'Number of girls:',
-        'confirm-date': 'Date:',
-        'confirm-time': 'Time:',
-        'confirm-duration': 'Duration:',
-        'confirm-booking': 'Confirm and Book Appointment',
-        'success-title': 'Appointment Booked Successfully!',
-        'success-subtitle': 'You will receive a confirmation email shortly',
-        'add-calendar': 'Add to Your Calendar',
-        'book-another': 'Book Another Appointment',
-        'footer-text': '© 2024 Appointment Booking System - Built specially for you',
-        'booking-progress': 'Booking your appointment...',
-        'duration-text': 'Duration:',
-        'selected-date': 'Selected date:',
-        'minutes': 'minutes',
-        'hours': 'hours',
-        'hour': 'hour',
-        'and': 'and',
-        'girls': 'girls',
-        'girl': 'girl',
-        'confirm-address': '📍 Address:',
-        'error-name-required': 'Please enter your name',
-        'error-name-length': 'Name must contain at least 2 characters',
-        'error-phone-required': 'Please enter phone number',
-        'error-phone-invalid': 'Invalid phone number',
-        'error-email-required': 'Please enter email address',
-        'error-email-invalid': 'Invalid email address',
-        'error-people-required': 'Please select number of girls',
-        'error-api': 'Server communication error. Please try again.',
-        'error-config': 'Error loading settings. Please refresh the page.'
-    }
-};
-
-// Hebrew month names
-const hebrewMonths = [
-    'ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני',
-    'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'
-];
-
-// English month names
-const englishMonths = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-];
-
-// Hebrew day names
-const hebrewDays = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש'];
-
-// English day names
-const englishDays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-
-// ============================================================================
-// API COMMUNICATION FUNCTIONS
-// ============================================================================
-
-/**
- * Makes a GET request to the Google Apps Script API
- * @param {Object} params - Query parameters to send
- * @return {Promise<Object>} The JSON response
- */
-async function apiGet(params) {
-    const queryString = new URLSearchParams(params).toString();
-    const url = `${API_URL}?${queryString}`;
-    
-    try {
-        const response = await fetch(url, {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                'Accept': 'application/json'
+        // Translations object
+        const translations = {
+            he: {
+                'page-title': 'קביעת פגישה למדידה',
+                'header-title': 'קביעת פגישה למדידה',
+                'header-subtitle': 'בחרי את הזמן המתאים לך ונקבע פגישה בקלות',
+                'step1-title': 'פרטים אישיים',
+                'step2-title': 'בחירת תאריך',
+                'step3-title': 'בחירת שעה',
+                'step4-title': 'אישור פרטי הפגישה',
+                'switch-to-english': 'English',
+                'label-name': 'שם מלא',
+                'label-phone': 'מספר טלפון',
+                'label-email': 'כתובת מייל',
+                'label-people': 'כמה בנות באות למדידה?',
+                'placeholder-name': 'הכניסי את שמך המלא',
+                'placeholder-phone': '050-1234567',
+                'placeholder-email': 'your-email@example.com',
+                'select-people': 'בחרי מספר בנות',
+                'people-1': '1 בת',
+                'people-2': '2 בנות',
+                'people-3': '3 בנות',
+                'people-4': '4 בנות',
+                'people-5': '5 בנות',
+                'people-6': '6 בנות',
+                'people-7': '7 בנות',
+                'people-8': '8 בנות',
+                'people-9': '9 בנות',
+                'continue-date': 'המשך לבחירת תאריך',
+                'continue-time': 'המשך לבחירת שעה',
+                'continue-confirm': 'המשך לאישור',
+                'back': 'חזור',
+                'loading-slots': 'טוען שעות פנויות...',
+                'no-slots': 'אין שעות פנויות בתאריך זה',
+                'choose-another': 'אנא בחרי תאריך אחר',
+                'confirmation-title': 'סיכום הפגישה',
+                'confirm-name': 'שם:',
+                'confirm-phone': 'טלפון:',
+                'confirm-email': 'מייל:',
+                'confirm-people': 'מספר בנות:',
+                'confirm-date': 'תאריך:',
+                'confirm-time': 'שעה:',
+                'confirm-duration': 'משך הפגישה:',
+                'confirm-booking': 'אשר ותקבע פגישה',
+                'success-title': 'הפגישה נקבעה בהצלחה!',
+                'success-subtitle': 'תקבלי אישור בדוא"ל בקרוב',
+                'add-calendar': 'הוסיפי ליומן שלך',
+                'book-another': 'קבעי פגישה נוספת',
+                'footer-text': '© 2024 מערכת קביעת תורים - נבנה במיוחד עבורך',
+                'booking-progress': 'קובע את הפגישה...',
+                'duration-text': 'משך הפגישה:',
+                'selected-date': 'תאריך נבחר:',
+                'minutes': 'דקות',
+                'hours': 'שעות',
+                'hour': 'שעה',
+                'and': 'ו-',
+                'girls': 'בנות',
+                'girl': 'בת',
+                'confirm-address': '📍 כתובת:',
+                'error-name-required': 'אנא הכניסי את שמך',
+                'error-name-length': 'השם חייב להכיל לפחות 2 תווים',
+                'error-phone-required': 'אנא הכניסי מספר טלפון',
+                'error-phone-invalid': 'מספר טלפון לא תקין',
+                'error-email-required': 'אנא הכניסי כתובת מייל',
+                'error-email-invalid': 'כתובת מייל לא תקינה',
+                'error-people-required': 'אנא בחרי מספר בנות',
+                'error-api': 'שגיאה בתקשורת עם השרת. נסי שוב.',
+                'error-config': 'שגיאה בטעינת ההגדרות. נסי לרענן את הדף.'
+            },
+            en: {
+                'page-title': 'Book an Appointment for Fitting',
+                'header-title': 'Book an Appointment for Fitting',
+                'header-subtitle': 'Choose your preferred time and book an appointment easily',
+                'step1-title': 'Personal Information',
+                'step2-title': 'Select Date',
+                'step3-title': 'Select Time',
+                'step4-title': 'Confirm Appointment Details',
+                'switch-to-english': 'עברית',
+                'label-name': 'Full Name',
+                'label-phone': 'Phone Number',
+                'label-email': 'Email Address',
+                'label-people': 'How many girls are coming for fitting?',
+                'placeholder-name': 'Enter your full name',
+                'placeholder-phone': '050-1234567',
+                'placeholder-email': 'your-email@example.com',
+                'select-people': 'Select number of girls',
+                'people-1': '1 girl',
+                'people-2': '2 girls',
+                'people-3': '3 girls',
+                'people-4': '4 girls',
+                'people-5': '5 girls',
+                'people-6': '6 girls',
+                'people-7': '7 girls',
+                'people-8': '8 girls',
+                'people-9': '9 girls',
+                'continue-date': 'Continue to Date Selection',
+                'continue-time': 'Continue to Time Selection',
+                'continue-confirm': 'Continue to Confirmation',
+                'back': 'Back',
+                'loading-slots': 'Loading available times...',
+                'no-slots': 'No available times on this date',
+                'choose-another': 'Please choose another date',
+                'confirmation-title': 'Appointment Summary',
+                'confirm-name': 'Name:',
+                'confirm-phone': 'Phone:',
+                'confirm-email': 'Email:',
+                'confirm-people': 'Number of girls:',
+                'confirm-date': 'Date:',
+                'confirm-time': 'Time:',
+                'confirm-duration': 'Duration:',
+                'confirm-booking': 'Confirm and Book Appointment',
+                'success-title': 'Appointment Booked Successfully!',
+                'success-subtitle': 'You will receive a confirmation email shortly',
+                'add-calendar': 'Add to Your Calendar',
+                'book-another': 'Book Another Appointment',
+                'footer-text': '© 2024 Appointment Booking System - Built specially for you',
+                'booking-progress': 'Booking your appointment...',
+                'duration-text': 'Duration:',
+                'selected-date': 'Selected date:',
+                'minutes': 'minutes',
+                'hours': 'hours',
+                'hour': 'hour',
+                'and': 'and',
+                'girls': 'girls',
+                'girl': 'girl',
+                'confirm-address': '📍 Address:',
+                'error-name-required': 'Please enter your name',
+                'error-name-length': 'Name must contain at least 2 characters',
+                'error-phone-required': 'Please enter phone number',
+                'error-phone-invalid': 'Invalid phone number',
+                'error-email-required': 'Please enter email address',
+                'error-email-invalid': 'Invalid email address',
+                'error-people-required': 'Please select number of girls',
+                'error-api': 'Server communication error. Please try again.',
+                'error-config': 'Error loading settings. Please refresh the page.'
             }
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        return await response.json();
-    } catch (error) {
-        console.error('API GET error:', error);
-        throw error;
-    }
-}
+        };
 
-/**
- * Makes a POST request to the Google Apps Script API
- * Uses a workaround for GAS CORS issues by encoding data in URL
- * 
- * @param {Object} data - Data to send
- * @return {Promise<Object>} The JSON response
- */
-async function apiPost(data) {
-    try {
-        // For Google Apps Script, we need to use GET with encoded data
-        // because POST has CORS issues with external domains
-        const encodedData = encodeURIComponent(JSON.stringify(data));
-        const url = `${API_URL}?action=${data.action}&data=${encodedData}`;
-        
-        const response = await fetch(url, {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                'Accept': 'application/json'
+        // Hebrew month names
+        const hebrewMonths = [
+            'ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני',
+            'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'
+        ];
+
+        // English month names
+        const englishMonths = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        // Hebrew day names
+        const hebrewDays = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש'];
+
+        // English day names
+        const englishDays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+
+        // ============================================================================
+        // API COMMUNICATION FUNCTIONS
+        // ============================================================================
+
+        /**
+         * Makes a GET request to the Google Apps Script API
+         * @param {Object} params - Query parameters to send
+         * @return {Promise<Object>} The JSON response
+         */
+        async function apiGet(params) {
+            const queryString = new URLSearchParams(params).toString();
+            const url = `${API_URL}?${queryString}`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('API GET error:', error);
+                throw error;
             }
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
-        return await response.json();
-    } catch (error) {
-        console.error('API POST error:', error);
-        throw error;
-    }
-}
 
-// ============================================================================
-// APPLICATION INITIALIZATION
-// ============================================================================
+        /**
+         * Makes a POST request to the Google Apps Script API
+         * Uses a workaround for GAS CORS issues by encoding data in URL
+         * 
+         * @param {Object} data - Data to send
+         * @return {Promise<Object>} The JSON response
+         */
+        async function apiPost(data) {
+            try {
+                // For Google Apps Script, we need to use GET with encoded data
+                // because POST has CORS issues with external domains
+                const encodedData = encodeURIComponent(JSON.stringify(data));
+                const url = `${API_URL}?action=${data.action}&data=${encodedData}`;
 
-// Initialize the application when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initializeApp();
-});
+                const response = await fetch(url, {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
 
-/**
- * Initialize the application
- */
-async function initializeApp() {
-    // Check if API URL is configured
-    if (API_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
-        console.error('API URL not configured! Please update the API_URL constant.');
-        alert(t('error-config') + '\n\nPlease configure the API_URL in the HTML file.');
-        return;
-    }
-    
-    // Load configuration from server
-    try {
-        const response = await apiGet({ action: 'getConfig' });
-        if (response.success) {
-            handleConfigLoaded(response.config);
-        } else {
-            console.error('Failed to load config:', response.message);
-            // Use default config
-            handleConfigLoaded({
-                baseDuration: 30,
-                additionalPersonDuration: 15,
-                businessName: 'מערכת קביעת תורים'
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('API POST error:', error);
+                throw error;
+            }
+        }
+
+        // ============================================================================
+        // APPLICATION INITIALIZATION
+        // ============================================================================
+
+        // Initialize the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeApp();
+        });
+
+        /**
+         * Initialize the application
+         */
+        async function initializeApp() {
+            // Check if API URL is configured
+            if (API_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+                console.error('API URL not configured! Please update the API_URL constant.');
+                alert(t('error-config') + '\n\nPlease configure the API_URL in the HTML file.');
+                return;
+            }
+
+            // Load configuration from server
+            try {
+                const response = await apiGet({ action: 'getConfig' });
+                if (response.success) {
+                    handleConfigLoaded(response.config);
+                } else {
+                    console.error('Failed to load config:', response.message);
+                    // Use default config
+                    handleConfigLoaded({
+                        baseDuration: 30,
+                        additionalPersonDuration: 15,
+                        businessName: 'מערכת קביעת תורים'
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading config:', error);
+                // Use default config
+                handleConfigLoaded({
+                    baseDuration: 30,
+                    additionalPersonDuration: 15,
+                    businessName: 'מערכת קביעת תורים'
+                });
+            }
+
+            // Set up event listeners
+            setupEventListeners();
+
+            // Initialize calendar
+            initializeCalendar();
+
+            // Apply initial language
+            applyLanguage(currentLanguage);
+
+            console.log('Appointment booking system initialized (standalone mode)');
+        }
+
+        /**
+         * Handle configuration loaded from server
+         */
+        function handleConfigLoaded(serverConfig) {
+            config = serverConfig;
+            console.log('Configuration loaded:', config);
+
+            // Start preloading time slots in the background
+            // This improves UX by having slots ready when user reaches step 3
+            startPreloading();
+        }
+
+        /**
+         * Set up all event listeners
+         */
+        function setupEventListeners() {
+            // Language toggle
+            document.getElementById('languageToggle').addEventListener('click', toggleLanguage);
+
+            // Step 1 - Personal Information
+            document.getElementById('clientName').addEventListener('input', validateStep1);
+            document.getElementById('clientPhone').addEventListener('input', validateStep1);
+            document.getElementById('clientEmail').addEventListener('input', validateStep1);
+            document.getElementById('numberOfPeople').addEventListener('change', handlePeopleChange);
+            document.getElementById('continueToDate').addEventListener('click', () => goToStep(2));
+
+            // Step 2 - Date Selection
+            document.getElementById('backToStep1').addEventListener('click', () => goToStep(1));
+            document.getElementById('continueToTime').addEventListener('click', () => goToStep(3));
+            document.getElementById('prevMonth').addEventListener('click', () => changeMonth(-1));
+            document.getElementById('nextMonth').addEventListener('click', () => changeMonth(1));
+
+            // Step 3 - Time Selection
+            document.getElementById('backToStep2').addEventListener('click', () => goToStep(2));
+            document.getElementById('continueToConfirm').addEventListener('click', () => goToStep(4));
+
+            // Step 4 - Confirmation
+            document.getElementById('backToStep3').addEventListener('click', () => goToStep(3));
+            document.getElementById('confirmBooking').addEventListener('click', confirmBooking);
+
+            // Success step
+            document.getElementById('bookAnother').addEventListener('click', resetForm);
+            document.getElementById('addToCalendar').addEventListener('click', addToCalendar);
+        }
+
+        /**
+         * Toggle language between Hebrew and English
+         */
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'he' ? 'en' : 'he';
+            applyLanguage(currentLanguage);
+
+            // Re-render calendar with new language
+            renderCalendar();
+
+            // Update duration info if needed
+            if (document.getElementById('numberOfPeople').value) {
+                handlePeopleChange();
+            }
+
+            // Update selected date info if needed
+            if (selectedDate) {
+                updateSelectedDateInfo();
+            }
+
+            console.log('Language switched to:', currentLanguage);
+        }
+
+        /**
+         * Apply language translations to the page
+         */
+        function applyLanguage(lang) {
+            const html = document.getElementById('htmlRoot');
+            html.setAttribute('lang', lang);
+            html.setAttribute('dir', lang === 'he' ? 'rtl' : 'ltr');
+
+            // Update all elements with translation attributes
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Update placeholders
+            document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-translate-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+
+            // Update document title
+            const titleKey = document.querySelector('title').getAttribute('data-translate');
+            if (translations[lang] && translations[lang][titleKey]) {
+                document.title = translations[lang][titleKey];
+            }
+
+            // Update arrow directions for LTR/RTL
+            updateArrowDirections(lang);
+        }
+
+        /**
+         * Update arrow directions based on language direction
+         */
+        function updateArrowDirections(lang) {
+            const isRTL = lang === 'he';
+
+            // Update calendar navigation arrows
+            const prevIcon = document.getElementById('prevIcon');
+            const nextIcon = document.getElementById('nextIcon');
+
+            if (prevIcon && nextIcon) {
+                if (isRTL) {
+                    prevIcon.className = 'fas fa-chevron-right';
+                    nextIcon.className = 'fas fa-chevron-left';
+                } else {
+                    prevIcon.className = 'fas fa-chevron-left';
+                    nextIcon.className = 'fas fa-chevron-right';
+                }
+            }
+
+            // Update button arrows
+            const arrowIcons = [
+                'arrowIcon', 'arrowIcon2', 'arrowIcon3',
+                'backIcon1', 'backIcon2', 'backIcon3'
+            ];
+
+            arrowIcons.forEach(iconId => {
+                const icon = document.getElementById(iconId);
+                if (icon) {
+                    if (iconId.startsWith('arrow')) {
+                        icon.className = isRTL ? 'fas fa-arrow-left' : 'fas fa-arrow-right';
+                    } else {
+                        icon.className = isRTL ? 'fas fa-arrow-right' : 'fas fa-arrow-left';
+                    }
+                }
             });
         }
-    } catch (error) {
-        console.error('Error loading config:', error);
-        // Use default config
-        handleConfigLoaded({
-            baseDuration: 30,
-            additionalPersonDuration: 15,
-            businessName: 'מערכת קביעת תורים'
-        });
-    }
-    
-    // Set up event listeners
-    setupEventListeners();
-    
-    // Initialize calendar
-    initializeCalendar();
-    
-    // Apply initial language
-    applyLanguage(currentLanguage);
-    
-    console.log('Appointment booking system initialized (standalone mode)');
-}
 
-/**
- * Handle configuration loaded from server
- */
-function handleConfigLoaded(serverConfig) {
-    config = serverConfig;
-    console.log('Configuration loaded:', config);
-    
-    // Start preloading time slots in the background
-    // This improves UX by having slots ready when user reaches step 3
-    startPreloading();
-}
-
-/**
- * Set up all event listeners
- */
-function setupEventListeners() {
-    // Language toggle
-    document.getElementById('languageToggle').addEventListener('click', toggleLanguage);
-    
-    // Step 1 - Personal Information
-    document.getElementById('clientName').addEventListener('input', validateStep1);
-    document.getElementById('clientPhone').addEventListener('input', validateStep1);
-    document.getElementById('clientEmail').addEventListener('input', validateStep1);
-    document.getElementById('numberOfPeople').addEventListener('change', handlePeopleChange);
-    document.getElementById('continueToDate').addEventListener('click', () => goToStep(2));
-    
-    // Step 2 - Date Selection
-    document.getElementById('backToStep1').addEventListener('click', () => goToStep(1));
-    document.getElementById('continueToTime').addEventListener('click', () => goToStep(3));
-    document.getElementById('prevMonth').addEventListener('click', () => changeMonth(-1));
-    document.getElementById('nextMonth').addEventListener('click', () => changeMonth(1));
-    
-    // Step 3 - Time Selection
-    document.getElementById('backToStep2').addEventListener('click', () => goToStep(2));
-    document.getElementById('continueToConfirm').addEventListener('click', () => goToStep(4));
-    
-    // Step 4 - Confirmation
-    document.getElementById('backToStep3').addEventListener('click', () => goToStep(3));
-    document.getElementById('confirmBooking').addEventListener('click', confirmBooking);
-    
-    // Success step
-    document.getElementById('bookAnother').addEventListener('click', resetForm);
-    document.getElementById('addToCalendar').addEventListener('click', addToCalendar);
-}
-
-/**
- * Toggle language between Hebrew and English
- */
-function toggleLanguage() {
-    currentLanguage = currentLanguage === 'he' ? 'en' : 'he';
-    applyLanguage(currentLanguage);
-    
-    // Re-render calendar with new language
-    renderCalendar();
-    
-    // Update duration info if needed
-    if (document.getElementById('numberOfPeople').value) {
-        handlePeopleChange();
-    }
-    
-    // Update selected date info if needed
-    if (selectedDate) {
-        updateSelectedDateInfo();
-    }
-    
-    console.log('Language switched to:', currentLanguage);
-}
-
-/**
- * Apply language translations to the page
- */
-function applyLanguage(lang) {
-    const html = document.getElementById('htmlRoot');
-    html.setAttribute('lang', lang);
-    html.setAttribute('dir', lang === 'he' ? 'rtl' : 'ltr');
-    
-    // Update all elements with translation attributes
-    document.querySelectorAll('[data-translate]').forEach(element => {
-        const key = element.getAttribute('data-translate');
-        if (translations[lang] && translations[lang][key]) {
-            element.textContent = translations[lang][key];
+        /**
+         * Get translation for a key
+         */
+        function t(key) {
+            return translations[currentLanguage] && translations[currentLanguage][key]
+                ? translations[currentLanguage][key]
+                : key;
         }
-    });
-    
-    // Update placeholders
-    document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
-        const key = element.getAttribute('data-translate-placeholder');
-        if (translations[lang] && translations[lang][key]) {
-            element.placeholder = translations[lang][key];
-        }
-    });
-    
-    // Update document title
-    const titleKey = document.querySelector('title').getAttribute('data-translate');
-    if (translations[lang] && translations[lang][titleKey]) {
-        document.title = translations[lang][titleKey];
-    }
-    
-    // Update arrow directions for LTR/RTL
-    updateArrowDirections(lang);
-}
 
-/**
- * Update arrow directions based on language direction
- */
-function updateArrowDirections(lang) {
-    const isRTL = lang === 'he';
-    
-    // Update calendar navigation arrows
-    const prevIcon = document.getElementById('prevIcon');
-    const nextIcon = document.getElementById('nextIcon');
-    
-    if (prevIcon && nextIcon) {
-        if (isRTL) {
-            prevIcon.className = 'fas fa-chevron-right';
-            nextIcon.className = 'fas fa-chevron-left';
-        } else {
-            prevIcon.className = 'fas fa-chevron-left';
-            nextIcon.className = 'fas fa-chevron-right';
-        }
-    }
-    
-    // Update button arrows
-    const arrowIcons = [
-        'arrowIcon', 'arrowIcon2', 'arrowIcon3',
-        'backIcon1', 'backIcon2', 'backIcon3'
-    ];
-    
-    arrowIcons.forEach(iconId => {
-        const icon = document.getElementById(iconId);
-        if (icon) {
-            if (iconId.startsWith('arrow')) {
-                icon.className = isRTL ? 'fas fa-arrow-left' : 'fas fa-arrow-right';
-            } else {
-                icon.className = isRTL ? 'fas fa-arrow-right' : 'fas fa-arrow-left';
+        /**
+         * Validate step 1 form fields
+         */
+        function validateStep1() {
+            const name = document.getElementById('clientName').value.trim();
+            const phone = document.getElementById('clientPhone').value.trim();
+            const email = document.getElementById('clientEmail').value.trim();
+            const people = document.getElementById('numberOfPeople').value;
+
+            // Clear previous errors
+            clearErrors();
+
+            let isValid = true;
+
+            // Validate name
+            if (!name) {
+                showError('nameError', t('error-name-required'));
+                isValid = false;
+            } else if (name.length < 2) {
+                showError('nameError', t('error-name-length'));
+                isValid = false;
             }
+
+            // Validate phone
+            if (!phone) {
+                showError('phoneError', t('error-phone-required'));
+                isValid = false;
+            } else if (!isValidPhone(phone)) {
+                showError('phoneError', t('error-phone-invalid'));
+                isValid = false;
+            }
+
+            // Validate email
+            if (!email) {
+                showError('emailError', t('error-email-required'));
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                showError('emailError', t('error-email-invalid'));
+                isValid = false;
+            }
+
+            // Validate number of people
+            if (!people) {
+                showError('peopleError', t('error-people-required'));
+                isValid = false;
+            }
+
+            // Enable/disable continue button
+            document.getElementById('continueToDate').disabled = !isValid;
+
+            return isValid;
         }
-    });
-}
 
-/**
- * Get translation for a key
- */
-function t(key) {
-    return translations[currentLanguage] && translations[currentLanguage][key] 
-        ? translations[currentLanguage][key] 
-        : key;
-}
+        /**
+         * Handle change in number of people
+         */
+        function handlePeopleChange() {
+            const people = parseInt(document.getElementById('numberOfPeople').value);
+            const durationInfo = document.getElementById('durationInfo');
 
-/**
- * Validate step 1 form fields
- */
-function validateStep1() {
-    const name = document.getElementById('clientName').value.trim();
-    const phone = document.getElementById('clientPhone').value.trim();
-    const email = document.getElementById('clientEmail').value.trim();
-    const people = document.getElementById('numberOfPeople').value;
-    
-    // Clear previous errors
-    clearErrors();
-    
-    let isValid = true;
-    
-    // Validate name
-    if (!name) {
-        showError('nameError', t('error-name-required'));
-        isValid = false;
-    } else if (name.length < 2) {
-        showError('nameError', t('error-name-length'));
-        isValid = false;
-    }
-    
-    // Validate phone
-    if (!phone) {
-        showError('phoneError', t('error-phone-required'));
-        isValid = false;
-    } else if (!isValidPhone(phone)) {
-        showError('phoneError', t('error-phone-invalid'));
-        isValid = false;
-    }
-    
-    // Validate email
-    if (!email) {
-        showError('emailError', t('error-email-required'));
-        isValid = false;
-    } else if (!isValidEmail(email)) {
-        showError('emailError', t('error-email-invalid'));
-        isValid = false;
-    }
-    
-    // Validate number of people
-    if (!people) {
-        showError('peopleError', t('error-people-required'));
-        isValid = false;
-    }
-    
-    // Enable/disable continue button
-    document.getElementById('continueToDate').disabled = !isValid;
-    
-    return isValid;
-}
+            if (people) {
+                const baseDuration = config.baseDuration || 30;
+                const additionalDuration = config.additionalPersonDuration || 15;
+                const totalDuration = baseDuration + ((people - 1) * additionalDuration);
 
-/**
- * Handle change in number of people
- */
-function handlePeopleChange() {
-    const people = parseInt(document.getElementById('numberOfPeople').value);
-    const durationInfo = document.getElementById('durationInfo');
-    
-    if (people) {
-        const baseDuration = config.baseDuration || 30;
-        const additionalDuration = config.additionalPersonDuration || 15;
-        const totalDuration = baseDuration + ((people - 1) * additionalDuration);
-        
-        // Format duration in a user-friendly way
-        let durationText = formatDurationInLanguage(totalDuration);
-        
-        durationInfo.innerHTML = `
+                // Format duration in a user-friendly way
+                let durationText = formatDurationInLanguage(totalDuration);
+
+                durationInfo.innerHTML = `
             <i class="fas fa-clock"></i>
             ${t('duration-text')} ${durationText}
         `;
-        durationInfo.classList.add('show');
-    } else {
-        durationInfo.classList.remove('show');
-    }
-    
-    validateStep1();
-}
-
-/**
- * Format duration according to current language
- */
-function formatDurationInLanguage(minutes) {
-    if (currentLanguage === 'he') {
-        if (minutes < 60) {
-            return `${minutes} ${t('minutes')}`;
-        } else {
-            const hours = Math.floor(minutes / 60);
-            const remainingMinutes = minutes % 60;
-            
-            if (remainingMinutes === 0) {
-                return hours === 1 ? t('hour') : `${hours} ${t('hours')}`;
+                durationInfo.classList.add('show');
             } else {
-                const hoursText = hours === 1 ? t('hour') : `${hours} ${t('hours')}`;
-                return `${hoursText} ${t('and')}-${remainingMinutes} ${t('minutes')}`;
+                durationInfo.classList.remove('show');
+            }
+
+            validateStep1();
+
+            // If we represent a date selected, recalculate slots
+            if (selectedDate && currentStep >= 3) {
+                loadTimeSlots();
             }
         }
-    } else {
-        if (minutes < 60) {
-            return `${minutes} ${t('minutes')}`;
-        } else {
-            const hours = Math.floor(minutes / 60);
-            const remainingMinutes = minutes % 60;
-            
-            if (remainingMinutes === 0) {
-                return hours === 1 ? `1 ${t('hour')}` : `${hours} ${t('hours')}`;
-            } else {
-                const hoursText = hours === 1 ? `1 ${t('hour')}` : `${hours} ${t('hours')}`;
-                return `${hoursText} ${t('and')} ${remainingMinutes} ${t('minutes')}`;
-            }
-        }
-    }
-}
 
-/**
- * Validate phone number
- * Accepts:
- * - Israeli local format: 05X-XXXXXXX, 0X-XXXXXXX (landline)
- * - Israeli international format: +972-XX-XXXXXXX or 972-XX-XXXXXXX
- * - International numbers: +XX... (any number starting with + followed by digits)
- * 
- * For Israeli +972 format, converts to local format for validation
- */
-function isValidPhone(phone) {
-    // Remove all non-digit characters except leading +
-    let cleanPhone = phone.trim();
-    const hasPlus = cleanPhone.startsWith('+');
-    cleanPhone = cleanPhone.replace(/\D/g, '');
-    
-    // Israeli +972 format: convert to local format (remove 972, add 0)
-    if (cleanPhone.startsWith('972') && cleanPhone.length >= 11) {
-        cleanPhone = '0' + cleanPhone.substring(3);
-    }
-    
-    // Israeli local format validation
-    if (/^0[2-9]\d{7,8}$/.test(cleanPhone) || /^05\d{8}$/.test(cleanPhone)) {
-        return true;
-    }
-    
-    // International format: starts with + and has at least 8 digits (excluding country code)
-    // Common international formats are 10-15 digits total
-    if (hasPlus && cleanPhone.length >= 8 && cleanPhone.length <= 15) {
-        return true;
-    }
-    
-    return false;
-}
-
-/**
- * Validate email address
- */
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-/**
- * Show error message
- */
-function showError(elementId, message) {
-    const errorElement = document.getElementById(elementId);
-    errorElement.textContent = message;
-    errorElement.classList.add('show');
-}
-
-/**
- * Clear all error messages
- */
-function clearErrors() {
-    const errorElements = document.querySelectorAll('.error-message');
-    errorElements.forEach(element => {
-        element.classList.remove('show');
-        element.textContent = '';
-    });
-}
-
-/**
- * Navigate to a specific step
- */
-function goToStep(step) {
-    // Hide current step
-    document.getElementById(`step${currentStep}`).classList.add('hidden');
-    
-    // Show new step
-    document.getElementById(`step${step}`).classList.remove('hidden');
-    
-    // Update current step
-    currentStep = step;
-    
-    // Handle step-specific logic
-    switch (step) {
-        case 3:
-            loadTimeSlots();
-            break;
-        case 4:
-            populateConfirmation();
-            break;
-    }
-    
-    // Scroll to top
-    window.scrollTo(0, 0);
-}
-
-/**
- * Initialize calendar
- */
-function initializeCalendar() {
-    currentMonth = new Date();
-    renderCalendar();
-}
-
-/**
- * Change calendar month
- */
-function changeMonth(direction) {
-    currentMonth.setMonth(currentMonth.getMonth() + direction);
-    renderCalendar();
-}
-
-/**
- * Render calendar for current month
- */
-function renderCalendar() {
-    const calendarTitle = document.getElementById('calendarTitle');
-    const calendarGrid = document.getElementById('calendarGrid');
-    
-    // Set title according to language
-    const months = currentLanguage === 'he' ? hebrewMonths : englishMonths;
-    calendarTitle.textContent = `${months[currentMonth.getMonth()]} ${currentMonth.getFullYear()}`;
-    
-    // Clear grid
-    calendarGrid.innerHTML = '';
-    
-    // Add day headers according to language
-    const days = currentLanguage === 'he' ? hebrewDays : englishDays;
-    days.forEach(day => {
-        const dayHeader = document.createElement('div');
-        dayHeader.className = 'calendar-day calendar-day-header';
-        dayHeader.textContent = day;
-        calendarGrid.appendChild(dayHeader);
-    });
-    
-    // Get first day of month and number of days
-    const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
-    const lastDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
-    const startDate = new Date(firstDay);
-    startDate.setDate(startDate.getDate() - firstDay.getDay());
-    
-    // Add calendar days
-    for (let i = 0; i < 42; i++) {
-        const date = new Date(startDate);
-        date.setDate(startDate.getDate() + i);
-        
-        const dayElement = document.createElement('div');
-        dayElement.className = 'calendar-day';
-        dayElement.textContent = date.getDate();
-        
-        // Check if date is in current month
-        if (date.getMonth() !== currentMonth.getMonth()) {
-            dayElement.classList.add('disabled');
-        } else {
-            // Check if date is in the past
-            const today = new Date();
-            const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-            const dateOnly = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-            
-            if (dateOnly < todayDateOnly) {
-                dayElement.classList.add('disabled');
-            } else {
-                // Check if it's a working day (Sunday-Thursday)
-                const dayOfWeek = date.getDay();
-                if (dayOfWeek === 5 || dayOfWeek === 6) { // Friday or Saturday
-                    dayElement.classList.add('disabled');
+        /**
+         * Format duration according to current language
+         */
+        function formatDurationInLanguage(minutes) {
+            if (currentLanguage === 'he') {
+                if (minutes < 60) {
+                    return `${minutes} ${t('minutes')}`;
                 } else {
-                    // Add click handler for valid dates
-                    dayElement.addEventListener('click', () => selectDate(date));
-                    
-                    // Check if it's today
-                    if (dateOnly.getTime() === todayDateOnly.getTime()) {
-                        dayElement.classList.add('today');
+                    const hours = Math.floor(minutes / 60);
+                    const remainingMinutes = minutes % 60;
+
+                    if (remainingMinutes === 0) {
+                        return hours === 1 ? t('hour') : `${hours} ${t('hours')}`;
+                    } else {
+                        const hoursText = hours === 1 ? t('hour') : `${hours} ${t('hours')}`;
+                        return `${hoursText} ${t('and')}-${remainingMinutes} ${t('minutes')}`;
                     }
-                    
-                    // Check if it's selected
-                    if (selectedDate && date.toDateString() === selectedDate.toDateString()) {
-                        dayElement.classList.add('selected');
+                }
+            } else {
+                if (minutes < 60) {
+                    return `${minutes} ${t('minutes')}`;
+                } else {
+                    const hours = Math.floor(minutes / 60);
+                    const remainingMinutes = minutes % 60;
+
+                    if (remainingMinutes === 0) {
+                        return hours === 1 ? `1 ${t('hour')}` : `${hours} ${t('hours')}`;
+                    } else {
+                        const hoursText = hours === 1 ? `1 ${t('hour')}` : `${hours} ${t('hours')}`;
+                        return `${hoursText} ${t('and')} ${remainingMinutes} ${t('minutes')}`;
                     }
                 }
             }
         }
-        
-        calendarGrid.appendChild(dayElement);
-    }
-}
 
-/**
- * Select a date
- */
-function selectDate(date) {
-    selectedDate = new Date(date);
-    
-    // Update calendar display
-    renderCalendar();
-    
-    // Enable continue button
-    document.getElementById('continueToTime').disabled = false;
-    
-    console.log('Date selected:', selectedDate);
-}
+        /**
+         * Validate phone number
+         * Accepts:
+         * - Israeli local format: 05X-XXXXXXX, 0X-XXXXXXX (landline)
+         * - Israeli international format: +972-XX-XXXXXXX or 972-XX-XXXXXXX
+         * - International numbers: +XX... (any number starting with + followed by digits)
+         * 
+         * For Israeli +972 format, converts to local format for validation
+         */
+        function isValidPhone(phone) {
+            // Remove all non-digit characters except leading +
+            let cleanPhone = phone.trim();
+            const hasPlus = cleanPhone.startsWith('+');
+            cleanPhone = cleanPhone.replace(/\D/g, '');
 
-/**
- * Update selected date info according to current language
- */
-function updateSelectedDateInfo() {
-    const selectedDateInfo = document.getElementById('selectedDateInfo');
-    selectedDateInfo.textContent = `${t('selected-date')} ${formatDateInLanguage(selectedDate)}`;
-}
+            // Israeli +972 format: convert to local format (remove 972, add 0)
+            if (cleanPhone.startsWith('972') && cleanPhone.length >= 11) {
+                cleanPhone = '0' + cleanPhone.substring(3);
+            }
 
-/**
- * Load available time slots for selected date
- * 
- * Enhanced with caching: First checks if slots are already cached from preloading.
- * If cached, displays immediately. If not, pauses preloading and fetches immediately.
- */
-async function loadTimeSlots() {
-    if (!selectedDate) return;
-    
-    // Update selected date info
-    updateSelectedDateInfo();
-    
-    // Calculate duration
-    const people = parseInt(document.getElementById('numberOfPeople').value);
-    const baseDuration = config.baseDuration || 30;
-    const additionalDuration = config.additionalPersonDuration || 15;
-    const duration = baseDuration + ((people - 1) * additionalDuration);
-    
-    // Format date correctly for Israel timezone
-    const year = selectedDate.getFullYear();
-    const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
-    const day = String(selectedDate.getDate()).padStart(2, '0');
-    const dateStr = `${year}-${month}-${day}`;
-    
-    console.log('Selected date:', selectedDate.toDateString());
-    console.log('Date string for lookup:', dateStr);
-    
-    // Check if we have cached slots for this date
-    if (timeSlotsCache[dateStr]) {
-        console.log(`Using cached slots for ${dateStr} (${timeSlotsCache[dateStr].length} slots)`);
-        // Use cached data - instant display!
-        handleTimeSlotsLoaded(timeSlotsCache[dateStr]);
-        return;
-    }
-    
-    // Not in cache - need to load from server
-    console.log(`No cache for ${dateStr}, loading from server...`);
-    
-    // Show loading indicator
-    document.getElementById('timeSlotsLoading').classList.remove('hidden');
-    document.getElementById('timeSlotsGrid').innerHTML = '';
-    document.getElementById('noSlotsMessage').classList.add('hidden');
-    
-    // Pause background preloading to prioritize this request
-    pausePreloading();
-    
-    try {
-        const response = await apiGet({
-            action: 'getTimeSlots',
-            date: dateStr,
-            duration: duration
-        });
-        
-        if (response.success) {
-            // Store in cache for future use
-            timeSlotsCache[dateStr] = response.timeSlots;
-            console.log(`Loaded and cached ${response.timeSlots.length} slots for ${dateStr}`);
-            handleTimeSlotsLoaded(response.timeSlots);
-        } else {
-            handleTimeSlotsError(response.message);
+            // Israeli local format validation
+            if (/^0[2-9]\d{7,8}$/.test(cleanPhone) || /^05\d{8}$/.test(cleanPhone)) {
+                return true;
+            }
+
+            // International format: starts with + and has at least 8 digits (excluding country code)
+            // Common international formats are 10-15 digits total
+            if (hasPlus && cleanPhone.length >= 8 && cleanPhone.length <= 15) {
+                return true;
+            }
+
+            return false;
         }
-    } catch (error) {
-        handleTimeSlotsError(error);
-    }
-    
-    // Resume background preloading
-    resumePreloading();
-}
 
-/**
- * Handle time slots loaded from server
- */
-function handleTimeSlotsLoaded(timeSlots) {
-    // Hide loading
-    document.getElementById('timeSlotsLoading').classList.add('hidden');
-    
-    const timeSlotsGrid = document.getElementById('timeSlotsGrid');
-    const noSlotsMessage = document.getElementById('noSlotsMessage');
-    
-    if (timeSlots.length === 0) {
-        noSlotsMessage.classList.remove('hidden');
-        return;
-    }
-    
-    // Clear previous slots
-    timeSlotsGrid.innerHTML = '';
-    
-    // Add time slots
-    timeSlots.forEach(slot => {
-        const slotElement = document.createElement('div');
-        slotElement.className = 'time-slot';
-        slotElement.innerHTML = `
+        /**
+         * Validate email address
+         */
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        /**
+         * Show error message
+         */
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+        }
+
+        /**
+         * Clear all error messages
+         */
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error-message');
+            errorElements.forEach(element => {
+                element.classList.remove('show');
+                element.textContent = '';
+            });
+        }
+
+        /**
+         * Navigate to a specific step
+         */
+        function goToStep(step) {
+            // Hide current step
+            document.getElementById(`step${currentStep}`).classList.add('hidden');
+
+            // Show new step
+            document.getElementById(`step${step}`).classList.remove('hidden');
+
+            // Update current step
+            currentStep = step;
+
+            // Handle step-specific logic
+            switch (step) {
+                case 3:
+                    loadTimeSlots();
+                    break;
+                case 4:
+                    populateConfirmation();
+                    break;
+            }
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        /**
+         * Initialize calendar
+         */
+        function initializeCalendar() {
+            currentMonth = new Date();
+            renderCalendar();
+        }
+
+        /**
+         * Change calendar month
+         */
+        function changeMonth(direction) {
+            currentMonth.setMonth(currentMonth.getMonth() + direction);
+            renderCalendar();
+        }
+
+        /**
+         * Render calendar for current month
+         */
+        function renderCalendar() {
+            const calendarTitle = document.getElementById('calendarTitle');
+            const calendarGrid = document.getElementById('calendarGrid');
+
+            // Set title according to language
+            const months = currentLanguage === 'he' ? hebrewMonths : englishMonths;
+            calendarTitle.textContent = `${months[currentMonth.getMonth()]} ${currentMonth.getFullYear()}`;
+
+            // Clear grid
+            calendarGrid.innerHTML = '';
+
+            // Add day headers according to language
+            const days = currentLanguage === 'he' ? hebrewDays : englishDays;
+            days.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'calendar-day calendar-day-header';
+                dayHeader.textContent = day;
+                calendarGrid.appendChild(dayHeader);
+            });
+
+            // Get first day of month and number of days
+            const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+            const lastDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+            const startDate = new Date(firstDay);
+            startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+            // Add calendar days
+            for (let i = 0; i < 42; i++) {
+                const date = new Date(startDate);
+                date.setDate(startDate.getDate() + i);
+
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.textContent = date.getDate();
+
+                // Check if date is in current month
+                if (date.getMonth() !== currentMonth.getMonth()) {
+                    dayElement.classList.add('disabled');
+                } else {
+                    // Check if date is in the past
+                    const today = new Date();
+                    const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                    const dateOnly = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+                    if (dateOnly < todayDateOnly) {
+                        dayElement.classList.add('disabled');
+                    } else {
+                        // Check if it's a working day (Sunday-Thursday)
+                        const dayOfWeek = date.getDay();
+                        if (dayOfWeek === 5 || dayOfWeek === 6) { // Friday or Saturday
+                            dayElement.classList.add('disabled');
+                        } else {
+                            // Add click handler for valid dates
+                            dayElement.addEventListener('click', () => selectDate(date));
+
+                            // Check if it's today
+                            if (dateOnly.getTime() === todayDateOnly.getTime()) {
+                                dayElement.classList.add('today');
+                            }
+
+                            // Check if it's selected
+                            if (selectedDate && date.toDateString() === selectedDate.toDateString()) {
+                                dayElement.classList.add('selected');
+                            }
+                        }
+                    }
+                }
+
+                calendarGrid.appendChild(dayElement);
+            }
+        }
+
+        /**
+         * Select a date
+         */
+        function selectDate(date) {
+            selectedDate = new Date(date);
+
+            // Update calendar display
+            renderCalendar();
+
+            // Enable continue button
+            document.getElementById('continueToTime').disabled = false;
+
+            console.log('Date selected:', selectedDate);
+        }
+
+        /**
+         * Update selected date info according to current language
+         */
+        function updateSelectedDateInfo() {
+            const selectedDateInfo = document.getElementById('selectedDateInfo');
+            selectedDateInfo.textContent = `${t('selected-date')} ${formatDateInLanguage(selectedDate)}`;
+        }
+
+        /**
+         * Load available time slots for selected date
+         * 
+         * Enhanced with caching: First checks if slots are already cached from preloading.
+         * If cached, displays immediately. If not, pauses preloading and fetches immediately.
+         */
+        async function loadTimeSlots() {
+            if (!selectedDate) return;
+
+            // Update selected date info
+            updateSelectedDateInfo();
+
+            // Calculate duration
+            const people = parseInt(document.getElementById('numberOfPeople').value);
+            const baseDuration = config.baseDuration || 30;
+            const additionalDuration = config.additionalPersonDuration || 15;
+            const duration = baseDuration + ((people - 1) * additionalDuration);
+
+            // Format date correctly for Israel timezone
+            const year = selectedDate.getFullYear();
+            const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+            const day = String(selectedDate.getDate()).padStart(2, '0');
+            const dateStr = `${year}-${month}-${day}`;
+
+            console.log('Selected date:', selectedDate.toDateString());
+            console.log('Date string for lookup:', dateStr);
+
+            // Check if we have cached availability for this date
+            if (availabilityCache[dateStr]) {
+                console.log(`Using cached availability for ${dateStr}`);
+                // Use cached data - calculate slots locally!
+                const timeSlots = calculateAvailableSlots(availabilityCache[dateStr], duration, selectedDate);
+                handleTimeSlotsLoaded(timeSlots);
+                return;
+            }
+
+            // Not in cache - need to load from server
+            console.log(`No cache for ${dateStr}, loading from server...`);
+
+            // Show loading indicator
+            document.getElementById('timeSlotsLoading').classList.remove('hidden');
+            document.getElementById('timeSlotsGrid').innerHTML = '';
+            document.getElementById('noSlotsMessage').classList.add('hidden');
+
+            // Pause background preloading to prioritize this request
+            pausePreloading();
+
+            try {
+                const response = await apiGet({
+                    action: 'getDailyAvailability',
+                    date: dateStr
+                });
+
+                if (response.success) {
+                    // Store in cache for future use
+                    availabilityCache[dateStr] = response; // Response contains { success: true, businessHours: ..., busySlots: ... } which is exactly what we need (minus success prop but that's fine)
+                    // actually response spread into availability object in server: return createJsonResponse({ success: true, ...availability });
+                    // so response IS the availability object (plus success: true).
+
+                    console.log(`Loaded and cached availability for ${dateStr}`);
+                    const timeSlots = calculateAvailableSlots(response, duration, selectedDate);
+                    handleTimeSlotsLoaded(timeSlots);
+                } else {
+                    handleTimeSlotsError(response.message);
+                }
+            } catch (error) {
+                handleTimeSlotsError(error);
+            }
+
+            // Resume background preloading
+            resumePreloading();
+        }
+
+        /**
+         * Handle time slots loaded from server
+         */
+        function handleTimeSlotsLoaded(timeSlots) {
+            // Hide loading
+            document.getElementById('timeSlotsLoading').classList.add('hidden');
+
+            const timeSlotsGrid = document.getElementById('timeSlotsGrid');
+            const noSlotsMessage = document.getElementById('noSlotsMessage');
+
+            if (timeSlots.length === 0) {
+                noSlotsMessage.classList.remove('hidden');
+                return;
+            }
+
+            // Clear previous slots
+            timeSlotsGrid.innerHTML = '';
+
+            // Add time slots
+            timeSlots.forEach(slot => {
+                const slotElement = document.createElement('div');
+                slotElement.className = 'time-slot';
+                slotElement.innerHTML = `
             <div class="time-slot-time">${slot.start} - ${slot.end}</div>
         `;
-        
-        slotElement.addEventListener('click', () => selectTimeSlot(slot, slotElement));
-        
-        timeSlotsGrid.appendChild(slotElement);
-    });
-}
 
-/**
- * Handle time slots loading error
- */
-function handleTimeSlotsError(error) {
-    document.getElementById('timeSlotsLoading').classList.add('hidden');
-    document.getElementById('noSlotsMessage').classList.remove('hidden');
-    console.error('Error loading time slots:', error);
-}
+                slotElement.addEventListener('click', () => selectTimeSlot(slot, slotElement));
 
-/**
- * Select a time slot
- */
-function selectTimeSlot(slot, element) {
-    selectedTimeSlot = slot;
-    
-    // Update UI
-    document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
-    element.classList.add('selected');
-    
-    // Enable continue button
-    document.getElementById('continueToConfirm').disabled = false;
-    
-    console.log('Time slot selected:', slot);
-}
+                timeSlotsGrid.appendChild(slotElement);
+            });
+        }
 
-/**
- * Populate confirmation details
- */
-function populateConfirmation() {
-    const name = document.getElementById('clientName').value.trim();
-    const phone = document.getElementById('clientPhone').value.trim();
-    const email = document.getElementById('clientEmail').value.trim();
-    const people = parseInt(document.getElementById('numberOfPeople').value);
-    
-    // Calculate duration
-    const baseDuration = config.baseDuration || 30;
-    const additionalDuration = config.additionalPersonDuration || 15;
-    const duration = baseDuration + ((people - 1) * additionalDuration);
-    
-    // Format duration in current language
-    const durationText = formatDurationInLanguage(duration);
-    
-    // Format people count in current language
-    const peopleText = currentLanguage === 'he' 
-        ? `${people} ${people === 1 ? t('girl') : t('girls')}`
-        : `${people} ${people === 1 ? t('girl') : t('girls')}`;
-    
-    // Update confirmation fields
-    document.getElementById('confirmName').textContent = name;
-    document.getElementById('confirmPhone').textContent = phone;
-    document.getElementById('confirmEmail').textContent = email;
-    document.getElementById('confirmPeople').textContent = peopleText;
-    document.getElementById('confirmDate').textContent = formatDateInLanguage(selectedDate);
-    document.getElementById('confirmTime').textContent = `${selectedTimeSlot.start} - ${selectedTimeSlot.end}`;
-    document.getElementById('confirmDuration').textContent = durationText;
-    
-    // Store appointment data with language preference
-    const year = selectedDate.getFullYear();
-    const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
-    const day = String(selectedDate.getDate()).padStart(2, '0');
-    const dateStr = `${year}-${month}-${day}`;
-    
-    appointmentData = {
-        name: name,
-        phone: phone,
-        email: email,
-        numberOfPeople: people,
-        selectedSlot: selectedTimeSlot,
-        date: dateStr,
-        language: currentLanguage
-    };
-}
+        /**
+         * Handle time slots loading error
+         */
+        function handleTimeSlotsError(error) {
+            document.getElementById('timeSlotsLoading').classList.add('hidden');
+            document.getElementById('noSlotsMessage').classList.remove('hidden');
+            console.error('Error loading time slots:', error);
+        }
 
-/**
- * Confirm and book the appointment
- */
-async function confirmBooking() {
-    // Show loading overlay
-    document.getElementById('loadingOverlay').classList.remove('hidden');
-    
-    try {
-        const response = await apiPost({
-            action: 'bookAppointment',
-            appointmentData: appointmentData
-        });
-        
-        handleBookingSuccess(response);
-    } catch (error) {
-        handleBookingError(error);
-    }
-}
+        /**
+         * Select a time slot
+         */
+        function selectTimeSlot(slot, element) {
+            selectedTimeSlot = slot;
 
-/**
- * Handle successful booking
- * Also handles the case where the slot was taken between selection and confirmation
- */
-function handleBookingSuccess(result) {
-    // Hide loading overlay
-    document.getElementById('loadingOverlay').classList.add('hidden');
-    
-    // Check if slot was taken before booking could complete
-    if (result && result.slotTaken === true) {
-        // The selected time slot was taken by someone else
-        console.log('Slot was taken before booking could complete');
-        
-        const errorMsg = currentLanguage === 'he' 
-            ? result.message || 'השעה שבחרת נתפסה בינתיים. אנא בחרי שעה אחרת.'
-            : 'The time slot you selected has been taken. Please choose another time.';
-        
-        alert(errorMsg);
-        
-        // Clear cache for this date to ensure fresh data
-        clearCacheForDate(appointmentData.date);
-        
-        // Clear cache for all dates to be safe (slots might have changed)
-        clearAllCache();
-        
-        // Reset time slot selection
-        selectedTimeSlot = null;
-        document.getElementById('continueToConfirm').disabled = true;
-        
-        // Go back to step 2 (date selection)
-        goToStep(2);
-        
-        // Restart preloading to get fresh data
-        startPreloading();
-        
-        return;
-    }
-    
-    if (result && result.success === true && result.eventId) {
-        // Store calendar link
-        calendarLink = result.calendarLink;
-        
-        // Show success step
-        goToStep('success');
-        
-        // Update success details in current language
-        const successDetails = document.getElementById('successDetails');
-        const addressText = currentLanguage === 'he' 
-            ? 'רב עמרם 18, קומה 2, בית שמש'
-            : 'Rav Amram 18, 2nd Floor, Beit Shemesh';
-        
-        successDetails.innerHTML = `
+            // Update UI
+            document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+
+            // Enable continue button
+            document.getElementById('continueToConfirm').disabled = false;
+
+            console.log('Time slot selected:', slot);
+        }
+
+        /**
+         * Populate confirmation details
+         */
+        function populateConfirmation() {
+            const name = document.getElementById('clientName').value.trim();
+            const phone = document.getElementById('clientPhone').value.trim();
+            const email = document.getElementById('clientEmail').value.trim();
+            const people = parseInt(document.getElementById('numberOfPeople').value);
+
+            // Calculate duration
+            const baseDuration = config.baseDuration || 30;
+            const additionalDuration = config.additionalPersonDuration || 15;
+            const duration = baseDuration + ((people - 1) * additionalDuration);
+
+            // Format duration in current language
+            const durationText = formatDurationInLanguage(duration);
+
+            // Format people count in current language
+            const peopleText = currentLanguage === 'he'
+                ? `${people} ${people === 1 ? t('girl') : t('girls')}`
+                : `${people} ${people === 1 ? t('girl') : t('girls')}`;
+
+            // Update confirmation fields
+            document.getElementById('confirmName').textContent = name;
+            document.getElementById('confirmPhone').textContent = phone;
+            document.getElementById('confirmEmail').textContent = email;
+            document.getElementById('confirmPeople').textContent = peopleText;
+            document.getElementById('confirmDate').textContent = formatDateInLanguage(selectedDate);
+            document.getElementById('confirmTime').textContent = `${selectedTimeSlot.start} - ${selectedTimeSlot.end}`;
+            document.getElementById('confirmDuration').textContent = durationText;
+
+            // Store appointment data with language preference
+            const year = selectedDate.getFullYear();
+            const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+            const day = String(selectedDate.getDate()).padStart(2, '0');
+            const dateStr = `${year}-${month}-${day}`;
+
+            appointmentData = {
+                name: name,
+                phone: phone,
+                email: email,
+                numberOfPeople: people,
+                selectedSlot: selectedTimeSlot,
+                date: dateStr,
+                language: currentLanguage
+            };
+        }
+
+        /**
+         * Confirm and book the appointment
+         */
+        async function confirmBooking() {
+            // Show loading overlay
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+
+            try {
+                const response = await apiPost({
+                    action: 'bookAppointment',
+                    appointmentData: appointmentData
+                });
+
+                handleBookingSuccess(response);
+            } catch (error) {
+                handleBookingError(error);
+            }
+        }
+
+        /**
+         * Handle successful booking
+         * Also handles the case where the slot was taken between selection and confirmation
+         */
+        function handleBookingSuccess(result) {
+            // Hide loading overlay
+            document.getElementById('loadingOverlay').classList.add('hidden');
+
+            // Check if slot was taken before booking could complete
+            if (result && result.slotTaken === true) {
+                // The selected time slot was taken by someone else
+                console.log('Slot was taken before booking could complete');
+
+                const errorMsg = currentLanguage === 'he'
+                    ? result.message || 'השעה שבחרת נתפסה בינתיים. אנא בחרי שעה אחרת.'
+                    : 'The time slot you selected has been taken. Please choose another time.';
+
+                alert(errorMsg);
+
+                // Clear cache for this date to ensure fresh data
+                clearCacheForDate(appointmentData.date);
+
+                // Clear cache for all dates to be safe (slots might have changed)
+                clearAllCache();
+
+                // Reset time slot selection
+                selectedTimeSlot = null;
+                document.getElementById('continueToConfirm').disabled = true;
+
+                // Go back to step 2 (date selection)
+                goToStep(2);
+
+                // Restart preloading to get fresh data
+                startPreloading();
+
+                return;
+            }
+
+            if (result && result.success === true && result.eventId) {
+                // Store calendar link
+                calendarLink = result.calendarLink;
+
+                // Show success step
+                goToStep('success');
+
+                // Update success details in current language
+                const successDetails = document.getElementById('successDetails');
+                const addressText = currentLanguage === 'he'
+                    ? 'רב עמרם 18, קומה 2, בית שמש'
+                    : 'Rav Amram 18, 2nd Floor, Beit Shemesh';
+
+                successDetails.innerHTML = `
             <div class="confirmation-item">
                 <span class="confirmation-label">${t('confirm-name')}</span>
                 <span class="confirmation-value">${appointmentData.name}</span>
@@ -2441,289 +2463,476 @@ function handleBookingSuccess(result) {
                 <span class="confirmation-value">${addressText}</span>
             </div>
         `;
-        
-        // Show success step
-        document.getElementById('step4').classList.add('hidden');
-        document.getElementById('successStep').classList.remove('hidden');
-        
-    } else {
-        const errorMsg = currentLanguage === 'he' 
-            ? 'שגיאה בקביעת הפגישה: ' + result.message
-            : 'Error booking appointment: ' + result.message;
-        alert(errorMsg);
-    }
-}
 
-/**
- * Handle booking error
- */
-function handleBookingError(error) {
-    // Hide loading overlay
-    document.getElementById('loadingOverlay').classList.add('hidden');
-    
-    const errorMsg = currentLanguage === 'he' 
-        ? 'שגיאה בקביעת הפגישה. אנא נסי שוב.'
-        : 'Error booking appointment. Please try again.';
-    alert(errorMsg);
-    console.error('Booking error:', error);
-}
+                // Show success step
+                document.getElementById('step4').classList.add('hidden');
+                document.getElementById('successStep').classList.remove('hidden');
 
-/**
- * Add appointment to client's calendar
- */
-function addToCalendar() {
-    if (calendarLink) {
-        window.open(calendarLink, '_blank');
-    } else {
-        const errorMsg = currentLanguage === 'he' 
-            ? 'שגיאה ביצירת קישור ליומן'
-            : 'Error creating calendar link';
-        alert(errorMsg);
-    }
-}
-
-/**
- * Reset form to start over
- */
-function resetForm() {
-    // Reset variables
-    currentStep = 1;
-    selectedDate = null;
-    selectedTimeSlot = null;
-    appointmentData = {};
-    calendarLink = null;
-    
-    // Clear time slots cache and restart preloading for fresh data
-    clearAllCache();
-    
-    // Reset form fields
-    document.getElementById('clientName').value = '';
-    document.getElementById('clientPhone').value = '';
-    document.getElementById('clientEmail').value = '';
-    document.getElementById('numberOfPeople').value = '';
-    document.getElementById('durationInfo').classList.remove('show');
-    
-    // Reset buttons
-    document.getElementById('continueToDate').disabled = true;
-    document.getElementById('continueToTime').disabled = true;
-    document.getElementById('continueToConfirm').disabled = true;
-    
-    // Clear errors
-    clearErrors();
-    
-    // Show first step
-    document.querySelectorAll('.step-container').forEach(step => step.classList.add('hidden'));
-    document.getElementById('step1').classList.remove('hidden');
-    
-    // Reset calendar
-    currentMonth = new Date();
-    renderCalendar();
-    
-    // Scroll to top
-    window.scrollTo(0, 0);
-    
-    // Restart preloading for fresh data
-    startPreloading();
-}
-
-/**
- * Format date according to current language
- */
-function formatDateInLanguage(date) {
-    if (currentLanguage === 'he') {
-        const days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
-        const dayName = days[date.getDay()];
-        const day = date.getDate();
-        const month = hebrewMonths[date.getMonth()];
-        const year = date.getFullYear();
-        
-        return `יום ${dayName}, ${day} ב${month} ${year}`;
-    } else {
-        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        const dayName = days[date.getDay()];
-        const day = date.getDate();
-        const month = englishMonths[date.getMonth()];
-        const year = date.getFullYear();
-        
-        return `${dayName}, ${month} ${day}, ${year}`;
-    }
-}
-
-/**
- * Handle general errors
- */
-function handleError(error) {
-    console.error('Error:', error);
-    const errorMsg = currentLanguage === 'he' 
-        ? 'אירעה שגיאה. אנא נסי שוב.'
-        : 'An error occurred. Please try again.';
-    alert(errorMsg);
-}
-
-// Utility function to go to success step
-function goToSuccessStep() {
-    document.querySelectorAll('.step-container').forEach(step => step.classList.add('hidden'));
-    document.getElementById('successStep').classList.remove('hidden');
-}
-
-// Make goToStep function work with success step
-const originalGoToStep = goToStep;
-goToStep = function(step) {
-    if (step === 'success') {
-        goToSuccessStep();
-    } else {
-        originalGoToStep(step);
-    }
-};
-
-// ============================================================================
-// PRE-LOADING FUNCTIONS
-// These functions handle background loading of time slots to improve UX
-// ============================================================================
-
-/**
- * Starts the background preloading of time slots for the next 30 days
- * 
- * Purpose: Load available time slots in the background while the client is
- * filling out the form on step 1. This way, when they reach step 3 (time selection),
- * the slots are already cached and display instantly.
- * 
- * Method: Builds a queue of working days (Sunday-Thursday) for the next 30 days
- * and starts loading them one by one in the background.
- */
-function startPreloading() {
-    console.log('Starting preload of time slots...');
-    
-    // Build queue of dates to preload (next 30 working days)
-    preloadQueue = [];
-    const today = new Date();
-    let daysAdded = 0;
-    let currentDate = new Date(today);
-    
-    while (daysAdded < 30) {
-        currentDate.setDate(currentDate.getDate() + 1);
-        const dayOfWeek = currentDate.getDay();
-        
-        // Only add working days (Sunday=0 to Thursday=4)
-        // Skip Friday (5) and Saturday (6)
-        if (dayOfWeek !== 5 && dayOfWeek !== 6) {
-            const year = currentDate.getFullYear();
-            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-            const day = String(currentDate.getDate()).padStart(2, '0');
-            const dateStr = `${year}-${month}-${day}`;
-            
-            preloadQueue.push(dateStr);
-            daysAdded++;
+            } else {
+                const errorMsg = currentLanguage === 'he'
+                    ? 'שגיאה בקביעת הפגישה: ' + result.message
+                    : 'Error booking appointment: ' + result.message;
+                alert(errorMsg);
+            }
         }
-    }
-    
-    console.log(`Preload queue built with ${preloadQueue.length} dates:`, preloadQueue.slice(0, 5), '...');
-    
-    // Start preloading
-    isPreloading = true;
-    preloadPaused = false;
-    preloadNextDate();
-}
 
-/**
- * Preloads the next date in the queue
- * Called recursively to process the entire queue
- */
-async function preloadNextDate() {
-    // Check if we should stop
-    if (!isPreloading || preloadQueue.length === 0) {
-        console.log('Preloading completed or stopped');
-        isPreloading = false;
-        return;
-    }
-    
-    // Check if paused (waiting for priority load)
-    if (preloadPaused) {
-        console.log('Preloading paused, waiting...');
-        return;
-    }
-    
-    // Get next date from queue
-    currentPreloadDate = preloadQueue.shift();
-    
-    // Skip if already cached
-    if (timeSlotsCache[currentPreloadDate]) {
-        console.log(`Date ${currentPreloadDate} already cached, skipping`);
-        preloadNextDate();
-        return;
-    }
-    
-    // Calculate duration (use default if not set yet)
-    const people = document.getElementById('numberOfPeople').value;
-    const baseDuration = config.baseDuration || 30;
-    const additionalDuration = config.additionalPersonDuration || 15;
-    const duration = people ? baseDuration + ((parseInt(people) - 1) * additionalDuration) : baseDuration;
-    
-    console.log(`Preloading date: ${currentPreloadDate} with duration: ${duration}`);
-    
-    try {
-        const response = await apiGet({
-            action: 'getTimeSlots',
-            date: currentPreloadDate,
-            duration: duration
-        });
-        
-        if (response.success) {
-            // Store in cache
-            timeSlotsCache[currentPreloadDate] = response.timeSlots;
-            console.log(`Cached ${response.timeSlots.length} slots for ${currentPreloadDate}`);
+        /**
+         * Handle booking error
+         */
+        function handleBookingError(error) {
+            // Hide loading overlay
+            document.getElementById('loadingOverlay').classList.add('hidden');
+
+            const errorMsg = currentLanguage === 'he'
+                ? 'שגיאה בקביעת הפגישה. אנא נסי שוב.'
+                : 'Error booking appointment. Please try again.';
+            alert(errorMsg);
+            console.error('Booking error:', error);
         }
-    } catch (error) {
-        console.error(`Failed to preload ${currentPreloadDate}:`, error);
-    }
-    
-    // Continue with next date (with small delay to not overload server)
-    setTimeout(preloadNextDate, 100);
-}
 
-/**
- * Pauses the preloading process
- * Called when user reaches step 3 and needs immediate loading of selected date
- */
-function pausePreloading() {
-    preloadPaused = true;
-    console.log('Preloading paused');
-}
+        /**
+         * Add appointment to client's calendar
+         */
+        function addToCalendar() {
+            if (calendarLink) {
+                window.open(calendarLink, '_blank');
+            } else {
+                const errorMsg = currentLanguage === 'he'
+                    ? 'שגיאה ביצירת קישור ליומן'
+                    : 'Error creating calendar link';
+                alert(errorMsg);
+            }
+        }
 
-/**
- * Resumes the preloading process
- * Called after priority load is complete
- */
-function resumePreloading() {
-    if (isPreloading && preloadPaused) {
-        preloadPaused = false;
-        console.log('Preloading resumed');
-        preloadNextDate();
-    }
-}
+        /**
+         * Reset form to start over
+         */
+        function resetForm() {
+            // Reset variables
+            currentStep = 1;
+            selectedDate = null;
+            selectedTimeSlot = null;
+            appointmentData = {};
+            calendarLink = null;
 
-/**
- * Clears the cache for a specific date
- * Called when a slot was taken to ensure fresh data
- * 
- * @param {string} dateStr - Date string in YYYY-MM-DD format
- */
-function clearCacheForDate(dateStr) {
-    if (timeSlotsCache[dateStr]) {
-        delete timeSlotsCache[dateStr];
-        console.log(`Cache cleared for ${dateStr}`);
-    }
-}
+            // Clear time slots cache and restart preloading for fresh data
+            clearAllCache();
 
-/**
- * Clears the entire time slots cache
- * Called when resetting the form or when data might be stale
- */
-function clearAllCache() {
-    timeSlotsCache = {};
-    console.log('All cache cleared');
-}
-</script>
+            // Reset form fields
+            document.getElementById('clientName').value = '';
+            document.getElementById('clientPhone').value = '';
+            document.getElementById('clientEmail').value = '';
+            document.getElementById('numberOfPeople').value = '';
+            document.getElementById('durationInfo').classList.remove('show');
+
+            // Reset buttons
+            document.getElementById('continueToDate').disabled = true;
+            document.getElementById('continueToTime').disabled = true;
+            document.getElementById('continueToConfirm').disabled = true;
+
+            // Clear errors
+            clearErrors();
+
+            // Show first step
+            document.querySelectorAll('.step-container').forEach(step => step.classList.add('hidden'));
+            document.getElementById('step1').classList.remove('hidden');
+
+            // Reset calendar
+            currentMonth = new Date();
+            renderCalendar();
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+
+            // Restart preloading for fresh data
+            startPreloading();
+        }
+
+        /**
+         * Format date according to current language
+         */
+        function formatDateInLanguage(date) {
+            if (currentLanguage === 'he') {
+                const days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+                const dayName = days[date.getDay()];
+                const day = date.getDate();
+                const month = hebrewMonths[date.getMonth()];
+                const year = date.getFullYear();
+
+                return `יום ${dayName}, ${day} ב${month} ${year}`;
+            } else {
+                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const dayName = days[date.getDay()];
+                const day = date.getDate();
+                const month = englishMonths[date.getMonth()];
+                const year = date.getFullYear();
+
+                return `${dayName}, ${month} ${day}, ${year}`;
+            }
+        }
+
+        /**
+         * Handle general errors
+         */
+        function handleError(error) {
+            console.error('Error:', error);
+            const errorMsg = currentLanguage === 'he'
+                ? 'אירעה שגיאה. אנא נסי שוב.'
+                : 'An error occurred. Please try again.';
+            alert(errorMsg);
+        }
+
+        // Utility function to go to success step
+        function goToSuccessStep() {
+            document.querySelectorAll('.step-container').forEach(step => step.classList.add('hidden'));
+            document.getElementById('successStep').classList.remove('hidden');
+        }
+
+        // Make goToStep function work with success step
+        const originalGoToStep = goToStep;
+        goToStep = function (step) {
+            if (step === 'success') {
+                goToSuccessStep();
+            } else {
+                originalGoToStep(step);
+            }
+        };
+
+        // ============================================================================
+        // CLIENT-SIDE SLOT CALCULATION
+        // ============================================================================
+
+        /**
+         * Calculates available time slots based on availability data and duration
+         * 
+         * @param {Object} availability - { businessHours, busySlots }
+         * @param {number} duration - Duration in minutes
+         * @param {Date} date - Selected date object
+         * @return {Array} Array of time slots { start, end, startDateTime, endDateTime }
+         */
+        function calculateAvailableSlots(availability, duration, date) {
+            if (!availability || !availability.businessHours) {
+                return [];
+            }
+
+            const { businessHours, busySlots } = availability;
+            const timeSlots = [];
+            const interval = config.timeSlotInterval || 15;
+
+            // Helper to process a period (morning, evening)
+            const processPeriod = (startStr, endStr) => {
+                if (!startStr || !endStr) return;
+
+                const startMinutes = timeToMinutes(startStr);
+                const endMinutes = timeToMinutes(endStr);
+
+                // Use a loop to check every slot
+                for (let current = startMinutes; current + duration <= endMinutes; current += interval) {
+                    const slotStartMinutes = current;
+                    const slotEndMinutes = current + duration;
+
+                    // Check if this slot overlaps with any busy slot
+                    const isBlocked = busySlots.some(busy => {
+                        const busyStart = new Date(busy.start);
+                        const busyEnd = new Date(busy.end);
+
+                        // Convert busy times to minutes since midnight for today
+                        // Note: busySlots from server are full ISO strings
+                        const busyStartMinutes = (busyStart.getHours() * 60) + busyStart.getMinutes();
+                        const busyEndMinutes = (busyEnd.getHours() * 60) + busyEnd.getMinutes();
+
+                        // Simple overlap check: (StartA < EndB) && (EndA > StartB)
+                        return (slotStartMinutes < busyEndMinutes) && (slotEndMinutes > busyStartMinutes);
+                    });
+
+                    // Specific check for "today" - filter out past slots + 3 hours buffer
+                    const now = new Date();
+                    const isToday = date.toDateString() === now.toDateString();
+                    if (isToday) {
+                        const slotStartTime = new Date(date);
+                        slotStartTime.setHours(Math.floor(slotStartMinutes / 60), slotStartMinutes % 60, 0, 0);
+
+                        const threeHoursFromNow = new Date(now.getTime() + (3 * 60 * 60 * 1000));
+                        if (slotStartTime <= threeHoursFromNow) {
+                            return;
+                        }
+                    }
+
+                    if (!isBlocked) {
+                        // Formatting
+                        const startH = Math.floor(slotStartMinutes / 60);
+                        const startM = slotStartMinutes % 60;
+                        const endH = Math.floor(slotEndMinutes / 60);
+                        const endM = slotEndMinutes % 60;
+
+                        const format = (h, m) => `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+
+                        // Create Date objects for ISO strings
+                        const slotStartDate = new Date(date);
+                        slotStartDate.setHours(startH, startM, 0, 0);
+                        const slotEndDate = new Date(date);
+                        slotEndDate.setHours(endH, endM, 0, 0);
+
+                        timeSlots.push({
+                            start: format(startH, startM),
+                            end: format(endH, endM),
+                            startDateTime: slotStartDate.toISOString(),
+                            endDateTime: slotEndDate.toISOString()
+                        });
+                    }
+                }
+            };
+
+            // Process morning
+            processPeriod(businessHours.start, businessHours.end);
+
+            // Process evening if exists
+            if (businessHours.evening) {
+                processPeriod(businessHours.evening.start, businessHours.evening.end);
+            }
+
+            return timeSlots;
+        }
+
+        /**
+         * Convert "HH:MM" string to minutes since midnight
+         */
+        function timeToMinutes(timeStr) {
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            return (hours * 60) + minutes;
+        }
+
+        // Clean implementation (fix for loop/return issue)
+        function calculateAvailableSlotsClean(availability, duration, date) {
+            if (!availability || !availability.businessHours) {
+                return [];
+            }
+
+            const { businessHours, busySlots } = availability;
+            const timeSlots = [];
+            const interval = config.timeSlotInterval || 15; // 15 minutes default
+
+            const periods = [];
+            periods.push({ start: businessHours.start, end: businessHours.end });
+            if (businessHours.evening) {
+                periods.push({ start: businessHours.evening.start, end: businessHours.evening.end });
+            }
+
+            const now = new Date();
+            const isToday = date.toDateString() === now.toDateString();
+
+            periods.forEach(period => {
+                if (!period.start || !period.end) return;
+
+                const startMinutes = timeToMinutes(period.start);
+                const endMinutes = timeToMinutes(period.end);
+
+                for (let current = startMinutes; current + duration <= endMinutes; current += interval) {
+                    const slotStartMinutes = current;
+                    const slotEndMinutes = current + duration;
+
+                    // Check past/buffer for today
+                    if (isToday) {
+                        const slotStartTime = new Date(date);
+                        slotStartTime.setHours(Math.floor(slotStartMinutes / 60), slotStartMinutes % 60, 0, 0);
+                        const threeHoursFromNow = new Date(now.getTime() + (3 * 60 * 60 * 1000));
+
+                        if (slotStartTime <= threeHoursFromNow) {
+                            continue;
+                        }
+                    }
+
+                    // Overlap check
+                    const isBlocked = busySlots.some(busy => {
+                        const busyStart = new Date(busy.start);
+                        const busyEnd = new Date(busy.end);
+
+                        // To compare accurately, we should compare full Date objects
+                        const slotStartTime = new Date(date);
+                        slotStartTime.setHours(Math.floor(slotStartMinutes / 60), slotStartMinutes % 60, 0, 0);
+
+                        const slotEndTime = new Date(date);
+                        slotEndTime.setHours(Math.floor(slotEndMinutes / 60), slotEndMinutes % 60, 0, 0);
+
+                        return (slotStartTime < busyEnd) && (slotEndTime > busyStart);
+                    });
+
+                    if (!isBlocked) {
+                        const startH = Math.floor(slotStartMinutes / 60);
+                        const startM = slotStartMinutes % 60;
+                        const endH = Math.floor(slotEndMinutes / 60);
+                        const endM = slotEndMinutes % 60;
+
+                        const format = (h, m) => `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+
+                        const slotStartTime = new Date(date);
+                        slotStartTime.setHours(startH, startM, 0, 0);
+                        const slotEndTime = new Date(date);
+                        slotEndTime.setHours(endH, endM, 0, 0);
+
+                        timeSlots.push({
+                            start: format(startH, startM),
+                            end: format(endH, endM),
+                            startDateTime: slotStartTime.toISOString(),
+                            endDateTime: slotEndTime.toISOString()
+                        });
+                    }
+                }
+            });
+
+            return timeSlots;
+        }
+
+        // Map the clean function to the real name
+        calculateAvailableSlots = calculateAvailableSlotsClean;
+
+        // ============================================================================
+        // PRE-LOADING FUNCTIONS
+        // These functions handle background loading of time slots to improve UX
+        // ============================================================================
+
+        /**
+         * Starts the background preloading of time slots for the next 30 days
+         * 
+         * Purpose: Load available time slots in the background while the client is
+         * filling out the form on step 1. This way, when they reach step 3 (time selection),
+         * the slots are already cached and display instantly.
+         * 
+         * Method: Builds a queue of working days (Sunday-Thursday) for the next 30 days
+         * and starts loading them one by one in the background.
+         */
+        function startPreloading() {
+            console.log('Starting preload of time slots...');
+
+            // Build queue of dates to preload (next 30 working days)
+            preloadQueue = [];
+            const today = new Date();
+            let daysAdded = 0;
+            let currentDate = new Date(today);
+
+            while (daysAdded < 30) {
+                currentDate.setDate(currentDate.getDate() + 1);
+                const dayOfWeek = currentDate.getDay();
+
+                // Only add working days (Sunday=0 to Thursday=4)
+                // Skip Friday (5) and Saturday (6)
+                if (dayOfWeek !== 5 && dayOfWeek !== 6) {
+                    const year = currentDate.getFullYear();
+                    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                    const day = String(currentDate.getDate()).padStart(2, '0');
+                    const dateStr = `${year}-${month}-${day}`;
+
+                    preloadQueue.push(dateStr);
+                    daysAdded++;
+                }
+            }
+
+            console.log(`Preload queue built with ${preloadQueue.length} dates:`, preloadQueue.slice(0, 5), '...');
+
+            // Start preloading
+            isPreloading = true;
+            preloadPaused = false;
+            preloadNextDate();
+        }
+
+        /**
+         * Preloads the next date in the queue
+         * Called recursively to process the entire queue
+         */
+        async function preloadNextDate() {
+            // Check if we should stop
+            if (!isPreloading || preloadQueue.length === 0) {
+                console.log('Preloading completed or stopped');
+                isPreloading = false;
+                return;
+            }
+
+            // Check if paused (waiting for priority load)
+            if (preloadPaused) {
+                console.log('Preloading paused, waiting...');
+                return;
+            }
+
+            // Get next date from queue
+            currentPreloadDate = preloadQueue.shift();
+
+            // Skip if already cached
+            if (availabilityCache[currentPreloadDate]) {
+                console.log(`Date ${currentPreloadDate} already cached, skipping`);
+                preloadNextDate();
+                return;
+            }
+
+            console.log(`Preloading availability for date: ${currentPreloadDate}`);
+
+            try {
+                const response = await apiGet({
+                    action: 'getDailyAvailability',
+                    date: currentPreloadDate
+                });
+
+                if (response.success) {
+                    // Store in cache
+                    availabilityCache[currentPreloadDate] = response;
+                    console.log(`Cached availability for ${currentPreloadDate}`);
+                }
+            } catch (error) {
+                console.error(`Failed to preload ${currentPreloadDate}:`, error);
+            }
+
+            // Continue with next date (with small delay to not overload server)
+            setTimeout(preloadNextDate, 100);
+        }
+
+        /**
+         * Pauses the preloading process
+         * Called when user reaches step 3 and needs immediate loading of selected date
+         */
+        function pausePreloading() {
+            preloadPaused = true;
+            console.log('Preloading paused');
+        }
+
+        /**
+         * Resumes the preloading process
+         * Called after priority load is complete
+         */
+        function resumePreloading() {
+            if (isPreloading && preloadPaused) {
+                preloadPaused = false;
+                console.log('Preloading resumed');
+                preloadNextDate();
+            }
+        }
+
+        /**
+         * Clears the cache for a specific date
+         * Called when a slot was taken to ensure fresh data
+         * 
+         * @param {string} dateStr - Date string in YYYY-MM-DD format
+         */
+        /**
+         * Clears the cache for a specific date
+         * Called when a slot was taken to ensure fresh data
+         * 
+         * @param {string} dateStr - Date string in YYYY-MM-DD format
+         */
+        function clearCacheForDate(dateStr) {
+            if (availabilityCache[dateStr]) {
+                delete availabilityCache[dateStr];
+                console.log(`Cache cleared for ${dateStr}`);
+            }
+        }
+
+        /**
+         * Clears the entire time slots cache
+         * Called when resetting the form or when data might be stale
+         */
+        function clearAllCache() {
+            availabilityCache = {};
+            console.log('All cache cleared');
+        }
+    </script>
 </body>
-</html>
 
+</html>
